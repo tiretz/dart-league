@@ -2,6 +2,14 @@
   height: 100%;
 }
 
+tr.running-games-row:hover {
+  background: whitesmoke;
+}
+
+tr.running-games-row:active {
+  background: #efefef;
+}
+
 .mat-column-id {
   width: 0px;
 }
