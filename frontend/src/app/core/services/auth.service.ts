@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import Keycloak from 'keycloak-js';
 
 import { ITokenUser } from '../models/token-user.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private _keycloak: Keycloak | undefined;
-  private _user: ITokenUser | undefined;
+  private userSubject: BehaviorSubject<ITokenUser | undefined> = new BehaviorSubject<ITokenUser | undefined>(undefined);
+
+  public user$: Observable<ITokenUser | undefined> = this.userSubject.asObservable();
 
   get keycloak(): Keycloak {
     if (!this._keycloak) {
@@ -31,7 +34,7 @@ export class AuthService {
   }
 
   get user(): ITokenUser | undefined {
-    return this._user;
+    return this.userSubject.getValue();
   }
 
   async init() {
@@ -40,8 +43,10 @@ export class AuthService {
     });
 
     if (authenticated) {
-      this._user = (await this.keycloak?.loadUserInfo()) as ITokenUser;
-      this._user.token = this.keycloak?.token;
+      const tokenUser: ITokenUser | undefined = (await this.keycloak?.loadUserInfo()) as ITokenUser;
+      tokenUser.token = this.keycloak?.token;
+
+      this.userSubject.next(tokenUser);
     }
   }
 

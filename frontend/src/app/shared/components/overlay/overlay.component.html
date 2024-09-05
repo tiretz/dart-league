@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <div class="overlay" *ngIf="isVisible">
+    <mat-spinner></mat-spinner>
+    <div class="h4 mt-3">{{ message }}</div>
+  </div>
+  <div class="w-100" [class.blurred]="isVisible">
+    <ng-content></ng-content>
+  </div>
+</div>
