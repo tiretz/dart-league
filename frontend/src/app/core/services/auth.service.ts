@@ -50,6 +50,10 @@ export class AuthService {
     }
   }
 
+  login(): Promise<void> {
+    return this.keycloak?.login({ redirectUri: window.location.href });
+  }
+
   logout(): Promise<void> {
     return this.keycloak?.logout({});
   }
