@@ -14,10 +14,15 @@
           </button>
         </div>
       </td>
-      } @else {
-      <th mat-header-cell mat-sort-header *matHeaderCellDef [arrowPosition]="column.columnDef == 'id' ? 'before' : 'after'">
+      } @else { @if (column.columnDef == 'id') {
+      <th mat-header-cell mat-sort-header *matHeaderCellDef appMatTableSortingCache sortingCacheId="runningGames" arrowPosition="before">
         {{ column.header }}
       </th>
+      } @else {
+      <th mat-header-cell mat-sort-header *matHeaderCellDef arrowPosition="after">
+        {{ column.header }}
+      </th>
+      }
       <td mat-cell *matCellDef="let row" [class.text-end]="column.columnDef == 'id'" [class.text-center]="['score', 'actions'].includes(column.columnDef)">
         {{ column.cell(row) }}
       </td>

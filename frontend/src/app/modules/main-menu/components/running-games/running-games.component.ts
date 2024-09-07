@@ -10,19 +10,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { Observable, Subscription } from 'rxjs';
 
+import { ITokenUser } from '../../../../core/models/token-user.interface';
 import { AuthService } from '../../../../core/services/auth.service';
 
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
+import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
 import { IGameInfo } from '../../models/game-info.interface';
 
 import { MainMenuService } from '../../services/main-menu.service';
-import { ITokenUser } from '../../../../core/models/token-user.interface';
 
 @Component({
   selector: 'app-running-games',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatTableModule, MatSortModule, MatButtonModule, MatIconModule, MatTooltipModule, OverlayComponent],
+  imports: [CommonModule, RouterModule, MatTableModule, MatSortModule, MatButtonModule, MatIconModule, MatTooltipModule, OverlayComponent, MatTableSortingCacheDirective],
   templateUrl: './running-games.component.html',
   styleUrl: './running-games.component.scss',
 })
