@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { MainComponent } from './modules/main/main.component';
-import { MainMenuComponent } from './modules/main-menu/main-menu.component';
+import { OverviewComponent } from './modules/overview/overview.component';
 import { ModerateGameComponent } from './modules/moderate-game/moderate-game.component';
 import { ViewGameComponent } from './modules/view-game/view-game.component';
 import { SettingsComponent } from './modules/settings/settings.component';
@@ -24,7 +24,7 @@ export const routes: Routes = [
       },
       {
         path: 'overview',
-        component: MainMenuComponent,
+        component: OverviewComponent,
         title: 'Übersicht',
       },
       {

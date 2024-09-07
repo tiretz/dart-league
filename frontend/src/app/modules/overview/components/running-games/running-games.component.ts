@@ -18,7 +18,7 @@ import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat
 
 import { IGameInfo } from '../../models/game-info.interface';
 
-import { MainMenuService } from '../../services/main-menu.service';
+import { OverviewService } from '../../services/overview.service';
 
 @Component({
   selector: 'app-running-games',
@@ -65,7 +65,7 @@ export class RunningGamesComponent implements OnDestroy, OnInit {
 
   private userSubscription?: Subscription;
 
-  constructor(private readonly authService: AuthService, private readonly mainMenuService: MainMenuService) {}
+  constructor(private readonly authService: AuthService, private readonly mainMenuService: OverviewService) {}
 
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();

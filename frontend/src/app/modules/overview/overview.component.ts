@@ -14,13 +14,13 @@ import { AuthService } from '../../core/services/auth.service';
 import { RunningGamesComponent } from './components/running-games/running-games.component';
 
 @Component({
-  selector: 'app-main-menu',
+  selector: 'app-overview',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, RunningGamesComponent],
-  templateUrl: './main-menu.component.html',
-  styleUrl: './main-menu.component.scss',
+  templateUrl: './overview.component.html',
+  styleUrl: './overview.component.scss',
 })
-export class MainMenuComponent {
+export class OverviewComponent {
   protected isUserLoggedIn: boolean = false;
 
   private userSubscription?: Subscription;
