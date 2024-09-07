@@ -28,10 +28,9 @@ tr.home-players-row:active {
   background: #efefef;
 }
 
-.mat-column-id {
-  width: 0px;
-}
-
+.mat-column-id,
+.mat-column-passnumber,
+.mat-column-teams,
 .mat-column-actions {
   width: 0px;
 }

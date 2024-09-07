@@ -32,14 +32,9 @@ export class HomePlayersComponent {
       cell: (element: IHomePlayer) => `${element.id}`,
     },
     {
-      columnDef: 'firstName',
-      header: 'Vorname',
-      cell: (element: IHomePlayer) => `${element.first_name}`,
-    },
-    {
-      columnDef: 'lastName',
-      header: 'Nachname',
-      cell: (element: IHomePlayer) => `${element.last_name}`,
+      columnDef: 'name',
+      header: 'Name',
+      cell: (element: IHomePlayer) => `${element.last_name}, ${element.first_name}`,
     },
     {
       columnDef: 'passnumber',
@@ -73,10 +68,7 @@ export class HomePlayersComponent {
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (item: IHomePlayer, property: string) => {
       switch (property) {
-        case 'firstName':
-          return item.first_name;
-
-        case 'lastName':
+        case 'name':
           return item.last_name;
 
         case 'teams':
