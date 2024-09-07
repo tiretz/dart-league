@@ -42,6 +42,11 @@ export class HomeTeamComponent {
       cell: (element: IHomeTeam) => `${element.name}`,
     },
     {
+      columnDef: 'league',
+      header: 'Spielklasse',
+      cell: (element: IHomeTeam) => `${element.league}`,
+    },
+    {
       columnDef: 'numberOfPlayers',
       header: 'Anzahl Spieler',
       cell: (element: IHomeTeam) => `${element.number_of_players}`,
