@@ -40,12 +40,12 @@ export class RunningGamesComponent implements OnDestroy, OnInit {
       cell: (element: IGameInfo) => `${element.id}`,
     },
     {
-      columnDef: 'home_team',
+      columnDef: 'homeTeam',
       header: 'Heimmannschaft',
       cell: (element: IGameInfo) => `${element.home_team.name}`,
     },
     {
-      columnDef: 'guest_team',
+      columnDef: 'guestTeam',
       header: 'Gastmannschaft',
       cell: (element: IGameInfo) => `${element.guest_team.name}`,
     },
@@ -65,14 +65,14 @@ export class RunningGamesComponent implements OnDestroy, OnInit {
 
   private userSubscription?: Subscription;
 
-  constructor(private readonly authService: AuthService, private readonly mainMenuService: OverviewService) {}
+  constructor(private readonly authService: AuthService, private readonly overviewService: OverviewService) {}
 
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.isLoading$ = this.mainMenuService.runningGamesLoading$;
+    this.isLoading$ = this.overviewService.runningGamesLoading$;
 
     this.userSubscription = this.authService.user$.subscribe({
       next: (user: ITokenUser | undefined) => {
@@ -93,7 +93,25 @@ export class RunningGamesComponent implements OnDestroy, OnInit {
     });
 
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item: IGameInfo, property: string) => {
+      switch (property) {
+        case 'homeTeam':
+          return item.home_team.name;
 
-    this.dataSource.data = [{ guest_team: { name: 'Guest', score: 1 }, home_team: { name: 'Home', score: 2 }, id: 1 }];
+        case 'guestTeam':
+          return item.guest_team.name;
+
+        case 'score':
+          return item.home_team.score;
+
+        default:
+          return (item as any)[property];
+      }
+    };
+
+    this.dataSource.data = [
+      { guest_team: { name: 'Guest', score: 1 }, home_team: { name: 'Home', score: 2 }, id: 1 },
+      { guest_team: { name: 'Guest 2', score: 2 }, home_team: { name: 'Home 2', score: 3 }, id: 2 },
+    ];
   }
 }
