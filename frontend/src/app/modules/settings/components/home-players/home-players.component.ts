@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -10,6 +11,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { Observable } from 'rxjs';
 
+import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
@@ -60,7 +62,7 @@ export class HomePlayersComponent {
   @ViewChild(MatSort, { static: true })
   protected sort!: MatSort;
 
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(private readonly dialogService: MatDialog, private readonly settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.settingsService.homeTeamsLoading$;
@@ -92,5 +94,20 @@ export class HomePlayersComponent {
       },
       { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: 'Liga 1', name: 'Test 1', number_of_players: 4 }] },
     ];
+  }
+
+  openDeleteDialog(playerToDelete: IHomePlayer): void {
+    const dialogData: DeleteDialogData = { text: `Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' wirklich löschen?`, title: 'Heimspieler löschen' };
+
+    const deleteDialogRef = this.dialogService.open(DeleteDialogComponent, { data: dialogData });
+
+    deleteDialogRef.afterClosed().subscribe((result: boolean | undefined) => {
+      if (result) {
+        console.error(`Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' gelöscht.`);
+        return;
+      }
+
+      console.error(`Löschen von Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' abgebrochen.`);
+    });
   }
 }

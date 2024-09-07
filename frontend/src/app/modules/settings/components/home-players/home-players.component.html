@@ -19,7 +19,7 @@
               <button mat-icon-button matTooltip="Heimspieler editieren">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button class="text-danger" matTooltip="Heimspieler löschen">
+              <button mat-icon-button class="text-danger" matTooltip="Heimspieler löschen" (click)="openDeleteDialog(row)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
