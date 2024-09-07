@@ -12,10 +12,12 @@ import { OverlayComponent } from '../../../../shared/components/overlay/overlay.
 
 import { SettingsService } from '../../services/settings.service';
 
+import { NumericSettingComponent } from '../numeric-setting/numeric-setting.component';
+
 @Component({
   selector: 'app-misc',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, OverlayComponent],
+  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, OverlayComponent, NumericSettingComponent],
   templateUrl: './misc.component.html',
   styleUrl: './misc.component.scss',
 })

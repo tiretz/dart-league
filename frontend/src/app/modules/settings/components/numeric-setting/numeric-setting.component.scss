@@ -1,0 +1,19 @@
+@use "@angular/material" as mat;
+
+:host {
+  @include mat.form-field-density(-4);
+}
+
+mat-form-field {
+  width: 90px;
+}
+
+input.text-end::-webkit-outer-spin-button,
+input.text-end::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.text-end {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

@@ -6,6 +6,8 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <app-overlay [isVisible]="isLoading$ | async" message="Lade sonstige Einstellungen ..."> </app-overlay>
+    <app-overlay [isVisible]="isLoading$ | async" message="Lade sonstige Einstellungen ...">
+      <app-numeric-setting text="Stake" [value]="0"></app-numeric-setting>
+    </app-overlay>
   </mat-card-content>
 </mat-card>
