@@ -1,7 +1,7 @@
 <app-header [sidenav]="snav"></app-header>
 <mat-sidenav-container autosize>
   <mat-sidenav #snav mode="over" [fixedInViewport]="true" fixedTopGap="64">
-    <app-sidenav></app-sidenav>
+    <app-sidenav [sidenav]="snav"></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content class="d-flex">
     <div class="content">

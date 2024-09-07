@@ -1,3 +1,3 @@
-<app-sidenav-link icon="home" routerLink="/overview" text="Übersicht"></app-sidenav-link>
-<app-sidenav-link icon="analytics" routerLink="/statistics" text="Statistik"></app-sidenav-link>
-<app-sidenav-link icon="settings" routerLink="/settings" text="Einstellungen"></app-sidenav-link>
+<app-sidenav-link icon="home" routerLink="/overview" text="Übersicht" (click)="sidenav.toggle()"></app-sidenav-link>
+<app-sidenav-link icon="analytics" routerLink="/statistics" text="Statistik" (click)="sidenav.toggle()"></app-sidenav-link>
+<app-sidenav-link icon="settings" routerLink="/settings" text="Einstellungen" (click)="sidenav.toggle()"></app-sidenav-link>
