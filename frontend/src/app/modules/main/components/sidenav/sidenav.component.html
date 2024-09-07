@@ -1,3 +1,3 @@
 <app-sidenav-link icon="home" routerLink="/overview" text="Übersicht" (click)="sidenav.toggle()"></app-sidenav-link>
 <app-sidenav-link icon="analytics" routerLink="/statistics" text="Statistik" (click)="sidenav.toggle()"></app-sidenav-link>
-<app-sidenav-link icon="settings" routerLink="/settings" text="Einstellungen" (click)="sidenav.toggle()"></app-sidenav-link>
+<app-sidenav-link *ngIf="isUserLoggedIn" icon="settings" routerLink="/settings" text="Einstellungen" (click)="sidenav.toggle()"></app-sidenav-link>
