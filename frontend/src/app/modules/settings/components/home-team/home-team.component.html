@@ -16,7 +16,7 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row">
             <div class="d-flex">
-              <button mat-icon-button matTooltip="Heimmannschaft editieren">
+              <button mat-icon-button matTooltip="Heimmannschaft editieren" (click)="openEditTeamDialog(row)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-icon-button class="text-danger" matTooltip="Heimmannschaft löschen" (click)="openDeleteDialog(row)">

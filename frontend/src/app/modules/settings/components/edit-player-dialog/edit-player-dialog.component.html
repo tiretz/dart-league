@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>
-  <mat-icon>add</mat-icon>
-  <span class="ms-2">Spieler hinzufügen</span>
+  <mat-icon>edit</mat-icon>
+  <span class="ms-2">Spieler bearbeiten</span>
 </h2>
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
@@ -55,8 +55,8 @@
 <mat-divider></mat-divider>
 <mat-dialog-actions align="end">
   <button mat-stroked-button mat-dialog-close>Abbrechen</button>
-  <button mat-flat-button [disabled]="formGroup.invalid" (click)="onCreatePlayer()">
-    <mat-icon>add</mat-icon>
-    <span>Erstellen</span>
+  <button mat-flat-button [disabled]="formGroup.invalid" (click)="onSavePlayer()">
+    <mat-icon>save</mat-icon>
+    <span>Speichern</span>
   </button>
 </mat-dialog-actions>

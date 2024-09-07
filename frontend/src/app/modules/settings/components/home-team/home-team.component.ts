@@ -16,11 +16,14 @@ import { OverlayComponent } from '../../../../shared/components/overlay/overlay.
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
 import { ICreateHomeTeam } from '../../models/create-home-team.interface';
+import { IEditHomeTeam } from '../../models/edit-home-team.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
+import { League } from '../../models/league.enum';
 
 import { SettingsService } from '../../services/settings.service';
 
 import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
+import { EditTeamDialogComponent } from '../edit-team-dialog/edit-team-dialog.component';
 
 @Component({
   selector: 'app-home-team',
@@ -82,8 +85,8 @@ export class HomeTeamComponent {
     };
 
     this.dataSource.data = [
-      { id: 1, league: 'Liga 1', name: 'Test', number_of_players: 5 },
-      { id: 2, league: 'Liga 2', name: 'Test 2', number_of_players: 1 },
+      { id: 1, league: League.A1, name: 'Test', number_of_players: 5 },
+      { id: 2, league: League.B2, name: 'Test 2', number_of_players: 1 },
     ];
   }
 
@@ -112,6 +115,19 @@ export class HomeTeamComponent {
       }
 
       console.error(`Löschen von Heimmannschaft '${teamToDelete.name}' abgebrochen.`);
+    });
+  }
+
+  openEditTeamDialog(teamToEdit: IHomeTeam): void {
+    const editTeamDialogRef = this.dialogService.open(EditTeamDialogComponent, { data: teamToEdit });
+
+    editTeamDialogRef.afterClosed().subscribe((editedTeam: IEditHomeTeam | undefined) => {
+      if (editedTeam) {
+        console.error(`Heimmannschaft '${editedTeam.name}' bearbeitet.`);
+        return;
+      }
+
+      console.error('Bearbeiten einer Heimmannschaft abgebrochen.');
     });
   }
 }

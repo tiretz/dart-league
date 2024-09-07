@@ -16,11 +16,14 @@ import { OverlayComponent } from '../../../../shared/components/overlay/overlay.
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
 import { ICreateHomePlayer } from '../../models/create-home-player.interface';
+import { IEditHomePlayer } from '../../models/edit-home-player.interface';
 import { IHomePlayer } from '../../models/home-player.interface';
+import { League } from '../../models/league.enum';
 
 import { SettingsService } from '../../services/settings.service';
 
 import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
+import { EditPlayerDialogComponent } from '../edit-player-dialog/edit-player-dialog.component';
 
 @Component({
   selector: 'app-home-players',
@@ -91,11 +94,11 @@ export class HomePlayersComponent {
         last_name: 'Last',
         passnumber: '123456789',
         teams: [
-          { id: 1, league: 'Liga 1', name: 'Test 1', number_of_players: 4 },
-          { id: 2, league: 'Liga 2', name: 'Test 2', number_of_players: 1 },
+          { id: 1, league: League.A1, name: 'Test 1', number_of_players: 4 },
+          { id: 2, league: League.B2, name: 'Test 2', number_of_players: 1 },
         ],
       },
-      { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: 'Liga 1', name: 'Test 1', number_of_players: 4 }] },
+      { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: League.A1, name: 'Test 1', number_of_players: 4 }] },
     ];
   }
 
@@ -124,6 +127,19 @@ export class HomePlayersComponent {
       }
 
       console.error(`Löschen von Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' abgebrochen.`);
+    });
+  }
+
+  openEditPlayerDialog(playerToEdit: IHomePlayer): void {
+    const editPlayerDialogRef = this.dialogService.open(EditPlayerDialogComponent, { data: playerToEdit });
+
+    editPlayerDialogRef.afterClosed().subscribe((editedPlayer: IEditHomePlayer | undefined) => {
+      if (editedPlayer) {
+        console.error(`Heimspieler '${editedPlayer.first_name} ${editedPlayer.last_name}' beabeitet.`);
+        return;
+      }
+
+      console.error('Bearbeiten eines Heimspielers abgebrochen.');
     });
   }
 }

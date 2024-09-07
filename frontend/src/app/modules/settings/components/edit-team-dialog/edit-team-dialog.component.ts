@@ -1,44 +1,49 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, Input } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ICreateHomeTeam } from '../../models/create-home-team.interface';
+import { IEditHomeTeam } from '../../models/edit-home-team.interface';
+import { IHomeTeam } from '../../models/home-team.interface';
 import { League } from '../../models/league.enum';
 
+import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
+
 @Component({
-  selector: 'app-create-team-dialog',
+  selector: 'app-edit-team-dialog',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MatDialogModule, MatIconModule, MatButtonModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule],
-  templateUrl: './create-team-dialog.component.html',
-  styleUrl: './create-team-dialog.component.scss',
+  templateUrl: './edit-team-dialog.component.html',
+  styleUrl: './edit-team-dialog.component.scss',
 })
-export class CreateTeamDialogComponent {
+export class EditTeamDialogComponent {
   formGroup!: FormGroup;
   leagues?: League[] = Object.values(League);
+
+  team: IHomeTeam = inject(MAT_DIALOG_DATA);
 
   constructor(private readonly dialogRef: MatDialogRef<CreateTeamDialogComponent>, private readonly formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      name: new FormControl('', { validators: [Validators.required] }),
-      league: new FormControl('', { validators: [Validators.required] }),
+      name: new FormControl(this.team.name, { validators: [Validators.required] }),
+      league: new FormControl(this.team.league, { validators: [Validators.required] }),
     });
   }
 
-  onCreateTeam(): void {
-    const newTeam: ICreateHomeTeam = {
+  onSaveTeam(): void {
+    const editedTeam: IEditHomeTeam = {
       name: this.formGroup.get('name')?.value,
       league: this.formGroup.get('league')?.value,
     };
 
-    this.dialogRef.close(newTeam);
+    this.dialogRef.close(editedTeam);
   }
 }
