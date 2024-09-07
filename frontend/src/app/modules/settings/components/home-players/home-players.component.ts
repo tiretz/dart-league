@@ -15,9 +15,12 @@ import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/comp
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
+import { ICreateHomePlayer } from '../../models/create-home-player.interface';
 import { IHomePlayer } from '../../models/home-player.interface';
 
 import { SettingsService } from '../../services/settings.service';
+
+import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
 
 @Component({
   selector: 'app-home-players',
@@ -94,6 +97,19 @@ export class HomePlayersComponent {
       },
       { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: 'Liga 1', name: 'Test 1', number_of_players: 4 }] },
     ];
+  }
+
+  openCreatePlayerDialog(): void {
+    const createPlayerDialogRef = this.dialogService.open(CreatePlayerDialogComponent);
+
+    createPlayerDialogRef.afterClosed().subscribe((newPlayer: ICreateHomePlayer | undefined) => {
+      if (newPlayer) {
+        console.error(`Heimspieler '${newPlayer.first_name} ${newPlayer.last_name}' erstellt.`);
+        return;
+      }
+
+      console.error('Erstellen eines Heimspielers abgebrochen.');
+    });
   }
 
   openDeleteDialog(playerToDelete: IHomePlayer): void {
