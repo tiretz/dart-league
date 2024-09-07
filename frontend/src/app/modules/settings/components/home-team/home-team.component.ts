@@ -15,9 +15,12 @@ import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/comp
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
+import { ICreateHomeTeam } from '../../models/create-home-team.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
 
 import { SettingsService } from '../../services/settings.service';
+
+import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
 
 @Component({
   selector: 'app-home-team',
@@ -77,6 +80,19 @@ export class HomeTeamComponent {
       { id: 1, league: 'Liga 1', name: 'Test', number_of_players: 5 },
       { id: 2, league: 'Liga 2', name: 'Test 2', number_of_players: 1 },
     ];
+  }
+
+  openCreateTeamDialog(): void {
+    const createTeamDialogRef = this.dialogService.open(CreateTeamDialogComponent);
+
+    createTeamDialogRef.afterClosed().subscribe((newTeam: ICreateHomeTeam | undefined) => {
+      if (newTeam) {
+        console.error(`Heimmannschaft '${newTeam.name}' erstellt.`);
+        return;
+      }
+
+      console.error('Erstellen einer Heimmannschaft abgebrochen.');
+    });
   }
 
   openDeleteDialog(teamToDelete: IHomeTeam): void {

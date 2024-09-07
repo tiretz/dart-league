@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>
+  <mat-icon>add</mat-icon>
+  <span class="ms-2">Mannschaft hinzufügen</span>
+</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formGroup">
+    <div class="container-fluid px-0">
+      <div class="row g-3">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput cdkFocusInitial formControlName="name" />
+            @if (formGroup.get('name')?.hasError('required')) {
+            <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Spielklasse</mat-label>
+            <mat-select formControlName="league">
+              @for (league of leagues; track league) {
+              <mat-option [value]="league">{{ league }}</mat-option>
+              }
+            </mat-select>
+            @if (formGroup.get('league')?.hasError('required')) {
+            <mat-error>Spielklasse muss ausgewählt werden</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Abbrechen</button>
+  <button mat-flat-button [disabled]="formGroup.invalid" (click)="onCreateTeam()">
+    <mat-icon>add</mat-icon>
+    <span>Erstellen</span>
+  </button>
+</mat-dialog-actions>
