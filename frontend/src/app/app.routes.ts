@@ -4,6 +4,8 @@ import { MainComponent } from './modules/main/main.component';
 import { MainMenuComponent } from './modules/main-menu/main-menu.component';
 import { ModerateGameComponent } from './modules/moderate-game/moderate-game.component';
 import { ViewGameComponent } from './modules/view-game/view-game.component';
+import { SettingsComponent } from './modules/settings/settings.component';
+import { StatisticsComponent } from './modules/statistics/statistics.component';
 
 export const routes: Routes = [
   {
@@ -27,12 +29,12 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
-        component: ViewGameComponent,
+        component: SettingsComponent,
         title: 'Einstellungen',
       },
       {
         path: 'statistics',
-        component: ViewGameComponent,
+        component: StatisticsComponent,
         title: 'Statistik',
       },
       {
