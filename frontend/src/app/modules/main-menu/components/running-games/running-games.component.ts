@@ -30,6 +30,11 @@ import { MainMenuService } from '../../services/main-menu.service';
 export class RunningGamesComponent implements OnDestroy, OnInit {
   protected columns = [
     {
+      columnDef: 'indicator',
+      header: '',
+      cell: (element: IGameInfo) => '',
+    },
+    {
       columnDef: 'id',
       header: 'Nr.',
       cell: (element: IGameInfo) => `${element.id}`,
