@@ -2,6 +2,10 @@
   height: 100%;
 }
 
+.running-games-row {
+  cursor: pointer;
+}
+
 tr.running-games-row:hover {
   background: whitesmoke;
 }

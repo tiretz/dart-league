@@ -1,0 +1,13 @@
+<div #rla="routerLinkActive" [routerLink]="routerLink" routerLinkActive [routerLinkActiveOptions]="routerLinkActiveOptions">
+  @if (rla.isActive) {
+  <a mat-flat-button>
+    <mat-icon [fontIcon]="icon"></mat-icon>
+    <span>{{ text }}</span>
+  </a>
+  } @else {
+  <a mat-raised-button>
+    <mat-icon [fontIcon]="icon"></mat-icon>
+    <span>{{ text }}</span>
+  </a>
+  }
+</div>

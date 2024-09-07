@@ -4,6 +4,14 @@
   height: 100%;
 }
 
+mat-sidenav-container {
+  flex: 1;
+}
+
+mat-sidenav {
+  width: auto;
+}
+
 .content {
   flex-grow: 1;
   padding: 1rem;

@@ -1,5 +1,12 @@
-<app-header></app-header>
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
-<app-footer></app-footer>
+<app-header [sidenav]="snav"></app-header>
+<mat-sidenav-container autosize>
+  <mat-sidenav #snav mode="over" [fixedInViewport]="true" fixedTopGap="64">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content class="d-flex">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,4 +1,9 @@
 <mat-toolbar class="d-flex justify-content-between">
-  <span>Dart Liga</span>
+  <div class="d-flex align-items-center">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="heading" routerLink="/">{{ title ?? "Dart Liga" }}</div>
+  </div>
   <app-user-info></app-user-info>
 </mat-toolbar>

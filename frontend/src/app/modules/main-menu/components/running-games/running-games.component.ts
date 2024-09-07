@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +22,7 @@ import { ITokenUser } from '../../../../core/models/token-user.interface';
 @Component({
   selector: 'app-running-games',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatSortModule, MatButtonModule, MatIconModule, MatTooltipModule, OverlayComponent],
+  imports: [CommonModule, RouterModule, MatTableModule, MatSortModule, MatButtonModule, MatIconModule, MatTooltipModule, OverlayComponent],
   templateUrl: './running-games.component.html',
   styleUrl: './running-games.component.scss',
 })
@@ -86,5 +87,7 @@ export class RunningGamesComponent implements OnDestroy, OnInit {
     });
 
     this.dataSource.sort = this.sort;
+
+    this.dataSource.data = [{ guest_team: { name: 'Guest', score: 1 }, home_team: { name: 'Home', score: 2 }, id: 1 }];
   }
 }
