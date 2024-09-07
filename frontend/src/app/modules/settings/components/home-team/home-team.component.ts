@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
+import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
@@ -55,7 +57,7 @@ export class HomeTeamComponent {
   @ViewChild(MatSort, { static: true })
   protected sort!: MatSort;
 
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(private readonly dialogService: MatDialog, private readonly settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.settingsService.homeTeamsLoading$;
@@ -75,5 +77,20 @@ export class HomeTeamComponent {
       { id: 1, league: 'Liga 1', name: 'Test', number_of_players: 5 },
       { id: 2, league: 'Liga 2', name: 'Test 2', number_of_players: 1 },
     ];
+  }
+
+  openDeleteDialog(teamToDelete: IHomeTeam): void {
+    const dialogData: DeleteDialogData = { text: `Heimmannschaft '${teamToDelete.name}' wirklich löschen?`, title: 'Heimmannschaft löschen' };
+
+    const deleteDialogRef = this.dialogService.open(DeleteDialogComponent, { data: dialogData });
+
+    deleteDialogRef.afterClosed().subscribe((result: boolean | undefined) => {
+      if (result) {
+        console.error(`Heimmannschaft '${teamToDelete.name}' gelöscht.`);
+        return;
+      }
+
+      console.error(`Löschen von Heimmannschaft '${teamToDelete.name}' abgebrochen.`);
+    });
   }
 }

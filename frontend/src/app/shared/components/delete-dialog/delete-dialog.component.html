@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>
+  <mat-icon class="text-danger">delete</mat-icon>
+  <span class="ms-2">{{ data.title }}</span>
+</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  {{ data.text }}
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close cdkFocusInitial>Abbrechen</button>
+  <button mat-raised-button class="text-danger" [mat-dialog-close]="true" cdkFocusInitial>
+    <mat-icon>delete</mat-icon>
+    <span>Löschen</span>
+  </button>
+</mat-dialog-actions>

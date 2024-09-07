@@ -1,4 +1,4 @@
-<mat-card appearance="raised">
+<mat-card class="h-100" appearance="raised">
   <mat-card-header class="d-flex justify-content-between align-items-center">
     <mat-icon mat-card-avatar>groups</mat-icon>
     <mat-card-title>Heimmannschaften</mat-card-title>
@@ -19,7 +19,7 @@
               <button mat-icon-button matTooltip="Heimmannschaft editieren">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button class="text-danger" matTooltip="Heimmannschaft löschen">
+              <button mat-icon-button class="text-danger" matTooltip="Heimmannschaft löschen" (click)="openDeleteDialog(row)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
