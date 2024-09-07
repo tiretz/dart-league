@@ -65,7 +65,7 @@ export class HomePlayersComponent {
   constructor(private readonly dialogService: MatDialog, private readonly settingsService: SettingsService) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.settingsService.homeTeamsLoading$;
+    this.isLoading$ = this.settingsService.homePlayersLoading$;
 
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (item: IHomePlayer, property: string) => {

@@ -1,9 +1,10 @@
 <app-header [sidenav]="snav"></app-header>
+<mat-divider></mat-divider>
 <mat-sidenav-container autosize>
-  <mat-sidenav #snav mode="over" [fixedInViewport]="true" fixedTopGap="64">
+  <mat-sidenav #snav mode="over" [fixedInViewport]="true" fixedTopGap="65">
     <app-sidenav [sidenav]="snav"></app-sidenav>
   </mat-sidenav>
-  <mat-sidenav-content class="d-flex">
+  <mat-sidenav-content class="d-flex overflow-hidden">
     <div class="content">
       <router-outlet></router-outlet>
     </div>

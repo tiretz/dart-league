@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-card-header > button {
+  width: 32px;
+  height: 32px;
+}
+
+.mat-mdc-card-avatar {
+  width: auto;
+  height: auto;
+  margin-bottom: 0;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}

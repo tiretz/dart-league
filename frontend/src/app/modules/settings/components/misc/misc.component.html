@@ -1,0 +1,11 @@
+<mat-card class="h-100" appearance="raised">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-icon mat-card-avatar>settings</mat-icon>
+    <mat-card-title>Sonstige Einstellungen</mat-card-title>
+    <div></div>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <app-overlay [isVisible]="isLoading$ | async" message="Lade sonstige Einstellungen ..."> </app-overlay>
+  </mat-card-content>
+</mat-card>
