@@ -1,7 +1,7 @@
 <mat-card appearance="raised">
   <mat-card-header>
     <mat-card-title>Laufende Spiele</mat-card-title>
-    <button mat-raised-button>
+    <button *ngIf="isUserLoggedIn" mat-raised-button>
       <mat-icon>add</mat-icon>
       <span>Neues Spiel erstellen</span>
     </button>
