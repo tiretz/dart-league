@@ -14,10 +14,12 @@
       <div class="row g-3">
         <div class="col">
           <app-game-info [info]="game?.info"></app-game-info>
-          <app-players class="mt-3" [players]="game?.home_team?.players" sortingCacheId="homePlayers"></app-players>
-          <app-players class="mt-3" [players]="game?.guest_team?.players" sortingCacheId="guestPlayers"></app-players>
+          <app-players class="mt-3" icon="home" [players]="game?.home_team?.players" sortingCacheId="homePlayers" [title]="game?.home_team?.name"></app-players>
+          <app-players class="mt-3" icon="groups" [players]="game?.guest_team?.players" sortingCacheId="guestPlayers" [title]="game?.guest_team?.name"></app-players>
         </div>
-        <div class="col"></div>
+        <div class="col">
+          <app-games-table [game]="game" sortingCacheId="games"></app-games-table>
+        </div>
       </div>
     </div>
   </mat-card-content>

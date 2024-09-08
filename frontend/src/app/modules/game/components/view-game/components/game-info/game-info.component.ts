@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { IGameInfo } from '../../../../models/game.interface';
@@ -8,7 +11,7 @@ import { IGameInfo } from '../../../../models/game.interface';
 @Component({
   selector: 'app-game-info',
   standalone: true,
-  imports: [CommonModule, MatTableModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatDividerModule, MatTableModule],
   templateUrl: './game-info.component.html',
   styleUrl: './game-info.component.scss',
 })

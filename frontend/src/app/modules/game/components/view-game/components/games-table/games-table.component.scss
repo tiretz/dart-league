@@ -13,7 +13,10 @@ mat-card-header {
 }
 
 .mat-column-index,
-.mat-column-rlp,
-.mat-column-stake {
+.mat-column-homePlayerNumber,
+.mat-column-guestPlayerNumber,
+.mat-column-legs,
+.mat-column-points,
+.mat-column-rank {
   width: 0px;
 }

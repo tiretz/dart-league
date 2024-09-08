@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
@@ -11,7 +14,7 @@ import { IPlayer } from '../../../../models/game.interface';
 @Component({
   selector: 'app-players',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatSortModule, MatTableSortingCacheDirective],
+  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatTableModule, MatSortModule, MatTableSortingCacheDirective],
   templateUrl: './players.component.html',
   styleUrl: './players.component.scss',
 })
@@ -48,12 +51,15 @@ export class PlayersComponent implements OnInit {
     },
     {
       columnDef: 'stake',
-      header: 'Stake',
+      header: 'SG',
       cell: (element: IPlayer) => `${element.stake.toFixed(2)} €`,
     },
   ];
   protected dataSource: MatTableDataSource<IPlayer> = new MatTableDataSource<IPlayer>();
   protected displayedColumns: string[] = this.columns.map((c) => c.columnDef);
+
+  @Input({ required: true })
+  icon!: string;
 
   @Input({ required: true })
   players?: IPlayer[];
@@ -63,6 +69,9 @@ export class PlayersComponent implements OnInit {
 
   @Input({ required: true })
   sortingCacheId!: string;
+
+  @Input({ required: true })
+  title?: string;
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;

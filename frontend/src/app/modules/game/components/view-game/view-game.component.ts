@@ -12,18 +12,20 @@ import { GameMode } from '../../../../core/models/game-mode.enum';
 import { IGame } from '../../models/game.interface';
 
 import { GameInfoComponent } from './components/game-info/game-info.component';
+import { GamesTableComponent } from './components/games-table/games-table.component';
 import { PlayersComponent } from './components/players/players.component';
 
 @Component({
   selector: 'app-view-game',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, GameInfoComponent, PlayersComponent],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, GameInfoComponent, PlayersComponent, GamesTableComponent],
   templateUrl: './view-game.component.html',
   styleUrl: './view-game.component.scss',
 })
 export class ViewGameComponent {
   game?: IGame = {
     guest_team: {
+      id: 1,
       name: 'Gast',
       players: [
         { first_name: 'Gast', id: 1, last_name: '1', passnumber: '123456789', rlp: 5, stake: 1 },
@@ -35,6 +37,7 @@ export class ViewGameComponent {
       score: 3,
     },
     home_team: {
+      id: 0,
       name: 'Home',
       players: [
         { first_name: 'Home', id: 6, last_name: '1', passnumber: '123456789', rlp: 5, stake: 1 },
@@ -50,6 +53,13 @@ export class ViewGameComponent {
       matchday: 6,
       mode: GameMode.SingleOut,
       stake: 3,
+    },
+    games: {
+      doubles: [],
+      singles: [
+        { guest_player_index: 0, home_player_index: 0, index: 0, leg_score: { guest: 1, home: 2 }, point_score: { guest: 1, home: 2 }, rank_score: { guest: 1, home: 2 } },
+        { guest_player_index: 1, home_player_index: 1, index: 1, leg_score: { guest: 2, home: 1 }, point_score: { guest: 2, home: 1 }, rank_score: { guest: 2, home: 1 } },
+      ],
     },
   };
 }
