@@ -1,1 +1,37 @@
-<p>view-game works!</p>
+<mat-card appearance="raised">
+  <div class="header">
+    <div>{{ game?.home_team?.name ?? "Heimmannschaft" }}</div>
+    <div class="score">
+      <span>{{ game?.home_team?.score ?? 0 }}</span>
+      <span class="mx-2">:</span>
+      <span>{{ game?.guest_team?.score ?? 0 }}</span>
+    </div>
+    <div>{{ game?.guest_team?.name ?? "Gastmannschaft" }}</div>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <div class="container-fluid px-0">
+      <div class="row g-3">
+        <div class="col">
+          <div class="container-fluid px-0">
+            <div class="row g-3">
+              <div class="col">
+                <app-game-info [info]="game?.info"></app-game-info>
+              </div>
+              <div class="row g-3">
+                <div class="col">
+                  <app-players [players]="game?.home_team?.players"></app-players>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col">
+                  <app-players [players]="game?.guest_team?.players"></app-players>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

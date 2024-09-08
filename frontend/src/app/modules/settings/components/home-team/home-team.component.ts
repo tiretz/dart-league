@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
+import { League } from '../../../../core/models/league.enum';
+
 import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
@@ -18,7 +20,6 @@ import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat
 import { ICreateHomeTeam } from '../../models/create-home-team.interface';
 import { IEditHomeTeam } from '../../models/edit-home-team.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
-import { League } from '../../models/league.enum';
 
 import { SettingsService } from '../../services/settings.service';
 

@@ -26,12 +26,12 @@ export const routes: Routes = [
           {
             path: 'moderate',
             component: ModerateGameComponent,
-            title: 'Moderation',
+            title: 'Spiel Moderation',
           },
           {
-            path: 'view',
+            path: '',
             component: ViewGameComponent,
-            title: 'Ansicht',
+            title: 'Spiel',
           },
         ],
       },

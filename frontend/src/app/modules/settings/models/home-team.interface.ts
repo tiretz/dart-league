@@ -1,4 +1,4 @@
-import { League } from './league.enum';
+import { League } from '../../../core/models/league.enum';
 
 export interface IHomeTeam {
   id: number;

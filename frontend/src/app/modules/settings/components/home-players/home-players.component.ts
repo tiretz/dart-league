@@ -11,6 +11,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { Observable } from 'rxjs';
 
+import { League } from '../../../../core/models/league.enum';
+
 import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
@@ -18,7 +20,6 @@ import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat
 import { ICreateHomePlayer } from '../../models/create-home-player.interface';
 import { IEditHomePlayer } from '../../models/edit-home-player.interface';
 import { IHomePlayer } from '../../models/home-player.interface';
-import { League } from '../../models/league.enum';
 
 import { SettingsService } from '../../services/settings.service';
 

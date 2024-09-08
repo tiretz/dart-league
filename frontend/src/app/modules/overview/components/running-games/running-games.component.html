@@ -36,7 +36,7 @@
     }
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="running-games-row" [routerLink]="'/game/' + row.id + '/view'"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="running-games-row" [routerLink]="'/game/' + row.id"></tr>
 
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>

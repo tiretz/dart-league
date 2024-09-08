@@ -10,10 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 
+import { League } from '../../../../core/models/league.enum';
+
 import { IEditHomePlayer } from '../../models/edit-home-player.interface';
 import { IHomePlayer } from '../../models/home-player.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
-import { League } from '../../models/league.enum';
 
 import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
 
