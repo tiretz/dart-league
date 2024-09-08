@@ -1,6 +1,3 @@
-import { GameMode } from '../../../core/models/game-mode.enum';
-import { League } from '../../../core/models/league.enum';
-
 export interface IDoubleGame extends ISingleGame {
   show_score: boolean;
 }
@@ -18,19 +15,31 @@ export interface IGames {
 }
 
 export interface IGameInfo {
-  league: League;
+  league: string;
   matchday: number;
-  mode: GameMode;
+  mode: string;
   stake: number;
 }
 
-interface IGuestTeam extends IHomeTeam {}
+export interface IGameInfoChange {
+  guest_team_name?: string;
+  home_team_id?: number;
+  league?: string;
+  matchday?: number;
+  mode?: string;
+  stake?: number;
+}
 
-interface IHomeTeam {
-  id: number;
-  name: string;
+export interface IGuestTeam extends IHomeTeam {}
+
+export interface IHomeTeam extends IHomeTeamInfo {
   players: IPlayer[];
   score: number;
+}
+
+export interface IHomeTeamInfo {
+  id: number;
+  name: string;
 }
 
 export interface IPlayer {

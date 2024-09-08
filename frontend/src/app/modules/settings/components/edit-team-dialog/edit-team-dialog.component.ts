@@ -10,8 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { League } from '../../../../core/models/league.enum';
-
 import { IEditHomeTeam } from '../../models/edit-home-team.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
 
@@ -26,7 +24,7 @@ import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dia
 })
 export class EditTeamDialogComponent {
   formGroup!: FormGroup;
-  leagues?: League[] = Object.values(League);
+  leagues?: string[] = ['A1', 'B1'];
 
   team: IHomeTeam = inject(MAT_DIALOG_DATA);
 

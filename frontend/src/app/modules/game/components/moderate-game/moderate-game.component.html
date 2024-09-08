@@ -1,1 +1,18 @@
-<p>moderate-game works!</p>
+<mat-card appearance="raised">
+  <div class="header">
+    <div>{{ game?.home_team?.name ?? "Heimmannschaft" }}</div>
+    <div class="score">
+      <span>{{ game?.home_team?.score ?? 0 }}</span>
+      <span class="mx-2">:</span>
+      <span>{{ game?.guest_team?.score ?? 0 }}</span>
+    </div>
+    <div>{{ game?.guest_team?.name ?? "Gastmannschaft" }}</div>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <app-game-info [game]="game"></app-game-info>
+    <app-players class="mt-3"></app-players>
+    <app-players class="mt-3"></app-players>
+    <app-games-table class="mt-3"></app-games-table>
+  </mat-card-content>
+</mat-card>

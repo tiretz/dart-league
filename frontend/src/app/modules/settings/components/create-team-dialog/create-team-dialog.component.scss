@@ -1,9 +1,3 @@
-@use "@angular/material" as mat;
-
-:host {
-  @include mat.form-field-density(0);
-}
-
 h2 {
   display: flex;
   flex-direction: row;

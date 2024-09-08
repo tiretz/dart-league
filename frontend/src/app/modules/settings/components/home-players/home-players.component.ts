@@ -11,8 +11,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { Observable } from 'rxjs';
 
-import { League } from '../../../../core/models/league.enum';
-
 import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
@@ -95,11 +93,11 @@ export class HomePlayersComponent {
         last_name: 'Last',
         passnumber: '123456789',
         teams: [
-          { id: 1, league: League.A1, name: 'Test 1', number_of_players: 4 },
-          { id: 2, league: League.B2, name: 'Test 2', number_of_players: 1 },
+          { id: 1, league: 'A1', name: 'Test 1', number_of_players: 4 },
+          { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },
         ],
       },
-      { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: League.A1, name: 'Test 1', number_of_players: 4 }] },
+      { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: 'A1', name: 'Test 1', number_of_players: 4 }] },
     ];
   }
 

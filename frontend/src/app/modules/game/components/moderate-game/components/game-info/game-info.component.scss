@@ -1,11 +1,19 @@
-@use "@angular/material" as mat;
-
 :host {
-  @include mat.form-field-density(-4);
+  display: block;
 }
 
-mat-form-field {
-  width: 110px;
+mat-card-header {
+  padding-bottom: 16px;
+}
+
+.mat-mdc-card-avatar {
+  width: auto;
+  height: auto;
+  margin-bottom: 0;
+}
+
+mat-card-content {
+  padding-top: 16px;
 }
 
 input[type="number"]::-webkit-outer-spin-button,

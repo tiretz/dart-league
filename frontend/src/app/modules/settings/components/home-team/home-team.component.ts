@@ -11,8 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
-import { League } from '../../../../core/models/league.enum';
-
 import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
@@ -86,8 +84,8 @@ export class HomeTeamComponent {
     };
 
     this.dataSource.data = [
-      { id: 1, league: League.A1, name: 'Test', number_of_players: 5 },
-      { id: 2, league: League.B2, name: 'Test 2', number_of_players: 1 },
+      { id: 1, league: 'A1', name: 'Test', number_of_players: 5 },
+      { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },
     ];
   }
 

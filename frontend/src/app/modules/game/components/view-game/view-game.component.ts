@@ -6,9 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 
-import { League } from '../../../../core/models/league.enum';
-import { GameMode } from '../../../../core/models/game-mode.enum';
-
 import { IGame } from '../../models/game.interface';
 
 import { GameInfoComponent } from './components/game-info/game-info.component';
@@ -49,9 +46,9 @@ export class ViewGameComponent {
       score: 5,
     },
     info: {
-      league: League.BZ,
+      league: 'BZ',
       matchday: 6,
-      mode: GameMode.SingleOut,
+      mode: '501SO',
       stake: 3,
     },
     games: {

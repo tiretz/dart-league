@@ -10,8 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 
-import { League } from '../../../../core/models/league.enum';
-
 import { ICreateHomePlayer } from '../../models/create-home-player.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
 
@@ -28,8 +26,8 @@ export class CreatePlayerDialogComponent implements OnInit {
 
   constructor(private readonly dialogRef: MatDialogRef<CreatePlayerDialogComponent>, private readonly formBuilder: FormBuilder) {
     this.homeTeams = [
-      { id: 1, league: League.A1, name: 'Test', number_of_players: 5 },
-      { id: 2, league: League.B2, name: 'Test 2', number_of_players: 1 },
+      { id: 1, league: 'A1', name: 'Test', number_of_players: 5 },
+      { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },
     ];
   }
 

@@ -1,0 +1,97 @@
+<mat-card class="overflow-hidden" appearance="raised">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-icon mat-card-avatar>info</mat-icon>
+    <mat-card-title>Info</mat-card-title>
+    <div></div>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <form [formGroup]="formGroup">
+      <div class="container-fluid px-0">
+        <div class="row g-3">
+          <div class="col">
+            <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Heimmannschaft</mat-label>
+              <mat-select formControlName="homeTeam">
+                @for (homeTeam of homeTeams; track homeTeam) {
+                <mat-option [value]="homeTeam.id">{{ homeTeam.name }}</mat-option>
+                }
+              </mat-select>
+              @if (formGroup.get('homeTeam')?.hasError('required')) {
+              <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Gastmannschaft</mat-label>
+              <input matInput formControlName="guestTeam" />
+              @if (formGroup.get('guestTeam')?.value) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="formGroup.get('guestTeam')?.patchValue('')">
+                <mat-icon>close</mat-icon>
+              </button>
+              } @if (formGroup.get('guestTeam')?.hasError('required')) {
+              <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row g-3 mt-0">
+          <div class="col">
+            <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Spieltag</mat-label>
+              <mat-select formControlName="matchday">
+                @for (matchday of matchdays; track matchday) {
+                <mat-option [value]="matchday">{{ matchday }}</mat-option>
+                }
+              </mat-select>
+              @if (formGroup.get('matchday')?.hasError('required')) {
+              <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Klasse</mat-label>
+              <mat-select formControlName="league">
+                @for (league of leagues; track league) {
+                <mat-option [value]="league">{{ league }}</mat-option>
+                }
+              </mat-select>
+              @if (formGroup.get('league')?.hasError('required')) {
+              <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Modus</mat-label>
+              <mat-select formControlName="mode">
+                @for (mode of modes; track mode) {
+                <mat-option [value]="mode">{{ mode }}</mat-option>
+                }
+              </mat-select>
+              @if (formGroup.get('mode')?.hasError('required')) {
+              <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Spielgeld</mat-label>
+              <span matTextPrefix="" class="me-1">€</span>
+              <input matInput type="number" formControlName="stake" placeholder="0.00" min="0" step="0.5" max="99.5" />
+              @if (formGroup.get('stake')?.value) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="formGroup.get('stake')?.patchValue('')">
+                <mat-icon>close</mat-icon>
+              </button>
+              } @if (formGroup.get('stake')?.hasError('required')) {
+              <mat-error>Feld muss einen <strong>gültigen</strong> Wert haben</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
