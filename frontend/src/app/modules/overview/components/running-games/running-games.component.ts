@@ -28,7 +28,11 @@ import { OverviewService } from '../../services/overview.service';
   styleUrl: './running-games.component.scss',
 })
 export class RunningGamesComponent implements OnDestroy, OnInit {
-  protected columns = [
+  protected columns: {
+    columnDef: string;
+    header: string;
+    cell: (element: IGameInfo) => string;
+  }[] = [
     {
       columnDef: 'indicator',
       header: '',
@@ -55,8 +59,8 @@ export class RunningGamesComponent implements OnDestroy, OnInit {
       cell: (element: IGameInfo) => `${element.home_team.score} : ${element.guest_team.score}`,
     },
   ];
-  protected dataSource = new MatTableDataSource<IGameInfo>();
-  protected displayedColumns = this.columns.map((c) => c.columnDef);
+  protected dataSource: MatTableDataSource<IGameInfo> = new MatTableDataSource<IGameInfo>();
+  protected displayedColumns: string[] = this.columns.map((c) => c.columnDef);
 
   protected isLoading$?: Observable<boolean>;
 

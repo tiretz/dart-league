@@ -14,18 +14,9 @@ tr.running-games-row:active {
   background: #efefef;
 }
 
-.mat-column-indicator {
-  width: 0px;
-}
-
-.mat-column-id {
-  width: 0px;
-}
-
-.mat-column-score {
-  width: 0px;
-}
-
+.mat-column-indicator,
+.mat-column-id,
+.mat-column-score,
 .mat-column-actions {
   width: 0px;
 }

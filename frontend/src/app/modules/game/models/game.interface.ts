@@ -24,6 +24,7 @@ interface IHomeTeam {
 
 export interface IPlayer {
   first_name: string;
+  id: number;
   last_name: string;
   passnumber: string;
   rlp: number;

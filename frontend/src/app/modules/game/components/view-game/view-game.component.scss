@@ -1,8 +1,5 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: block;
   height: 100%;
 }
 
@@ -22,4 +19,8 @@ mat-card {
 mat-divider {
   margin-top: 16px;
   margin-bottom: 16px;
+}
+
+mat-card-content {
+  overflow: auto;
 }
