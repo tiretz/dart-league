@@ -10,11 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 
-import { IEditHomePlayer } from '../../models/edit-home-player.interface';
-import { IHomePlayer } from '../../models/home-player.interface';
-import { IHomeTeam } from '../../models/home-team.interface';
-
-import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
+import { IEditHomePlayer } from '../../../../models/edit-home-player.interface';
+import { IHomePlayer } from '../../../../models/home-player.interface';
+import { IHomeTeam } from '../../../../models/home-team.interface';
 
 @Component({
   selector: 'app-edit-player-dialog',
@@ -29,7 +27,7 @@ export class EditPlayerDialogComponent {
   formGroup!: FormGroup;
   homeTeams?: IHomeTeam[];
 
-  constructor(private readonly dialogRef: MatDialogRef<CreatePlayerDialogComponent>, private readonly formBuilder: FormBuilder) {
+  constructor(private readonly dialogRef: MatDialogRef<EditPlayerDialogComponent>, private readonly formBuilder: FormBuilder) {
     this.homeTeams = [
       { id: 1, league: 'A1', name: 'Test', number_of_players: 5 },
       { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },

@@ -1,0 +1,51 @@
+<mat-card class="h-100" appearance="raised">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-icon mat-card-avatar>{{ icon }}</mat-icon>
+    <mat-card-title>{{ itemPluralName }}</mat-card-title>
+    <button mat-mini-fab (click)="openAddNewItemDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <app-overlay [isVisible]="isLoading$ | async" [message]="'Lade ' + itemPluralName + ' ...'">
+      <table mat-table matSort [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="dataSource">
+        <ng-container matColumnDef="drag">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon class="drag-cursor">reorder</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <mat-header-cell *matHeaderCellDef>
+            <span class="text-nowrap">{{ itemSingularName }}</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row" class="justify-content-end">
+            <div class="d-flex">
+              <button mat-icon-button matTooltip="Eintrag editieren" (click)="openEditItemDialog(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="text-danger" matTooltip="Eintrag löschen" (click)="openDeleteItemDialog(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" class="item-row" cdkDrag [cdkDragData]="row"></mat-row>
+
+        <!-- Row shown when there is no matching data. -->
+        <mat-row *matNoDataRow>
+          <td class="mat-cell p-2 text-center" [colSpan]="displayedColumns.length">Keine Daten vorhanden</td>
+        </mat-row>
+      </table>
+    </app-overlay>
+  </mat-card-content>
+</mat-card>

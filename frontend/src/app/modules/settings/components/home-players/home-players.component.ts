@@ -21,8 +21,8 @@ import { IHomePlayer } from '../../models/home-player.interface';
 
 import { SettingsService } from '../../services/settings.service';
 
-import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
-import { EditPlayerDialogComponent } from '../edit-player-dialog/edit-player-dialog.component';
+import { CreatePlayerDialogComponent } from './components/create-player-dialog/create-player-dialog.component';
+import { EditPlayerDialogComponent } from './components/edit-player-dialog/edit-player-dialog.component';
 
 @Component({
   selector: 'app-home-players',
@@ -138,7 +138,7 @@ export class HomePlayersComponent {
         return;
       }
 
-      console.error('Bearbeiten eines Heimspielers abgebrochen.');
+      console.error(`Bearbeiten von Heimspieler '${playerToEdit.first_name} ${playerToEdit.last_name}' abgebrochen.`);
     });
   }
 }

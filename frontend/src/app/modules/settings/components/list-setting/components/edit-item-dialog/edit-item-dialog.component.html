@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>
+  <mat-icon>edit</mat-icon>
+  <span class="ms-2">{{ data.itemName }} bearbeiten</span>
+</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formGroup">
+    <div class="container-fluid px-0">
+      <div class="row g-3">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ data.itemName }}</mat-label>
+            <input matInput cdkFocusInitial formControlName="item" />
+            @if (formGroup.get('item')?.hasError('required')) {
+            <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Abbrechen</button>
+  <button mat-flat-button [disabled]="formGroup.invalid" (click)="onSaveItem()">
+    <mat-icon>save</mat-icon>
+    <span>Speichern</span>
+  </button>
+</mat-dialog-actions>

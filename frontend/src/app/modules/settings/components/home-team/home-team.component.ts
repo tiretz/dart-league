@@ -21,8 +21,8 @@ import { IHomeTeam } from '../../models/home-team.interface';
 
 import { SettingsService } from '../../services/settings.service';
 
-import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
-import { EditTeamDialogComponent } from '../edit-team-dialog/edit-team-dialog.component';
+import { CreateTeamDialogComponent } from './components/create-team-dialog/create-team-dialog.component';
+import { EditTeamDialogComponent } from './components/edit-team-dialog/edit-team-dialog.component';
 
 @Component({
   selector: 'app-home-team',
@@ -126,7 +126,7 @@ export class HomeTeamComponent {
         return;
       }
 
-      console.error('Bearbeiten einer Heimmannschaft abgebrochen.');
+      console.error(`Bearbeiten von Heimmannschaft '${teamToEdit.name}' abgebrochen.`);
     });
   }
 }

@@ -10,10 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { IEditHomeTeam } from '../../models/edit-home-team.interface';
-import { IHomeTeam } from '../../models/home-team.interface';
-
-import { CreateTeamDialogComponent } from '../create-team-dialog/create-team-dialog.component';
+import { IEditHomeTeam } from '../../../../models/edit-home-team.interface';
+import { IHomeTeam } from '../../../../models/home-team.interface';
 
 @Component({
   selector: 'app-edit-team-dialog',
@@ -28,7 +26,7 @@ export class EditTeamDialogComponent {
 
   team: IHomeTeam = inject(MAT_DIALOG_DATA);
 
-  constructor(private readonly dialogRef: MatDialogRef<CreateTeamDialogComponent>, private readonly formBuilder: FormBuilder) {}
+  constructor(private readonly dialogRef: MatDialogRef<EditTeamDialogComponent>, private readonly formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({

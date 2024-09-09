@@ -1,10 +1,18 @@
 <div class="container-fluid px-0">
-  <div class="row row-cols-1 row-cols-xxl-2 g-3">
+  <div class="row g-3">
     <div class="col">
       <app-home-team></app-home-team>
     </div>
     <div class="col">
       <app-home-players></app-home-players>
+    </div>
+  </div>
+  <div class="row g-3 mt-0">
+    <div class="col">
+      <app-list-setting icon="list" [isLoading$]="leaguesLoading$" itemPluralName="Klassen" itemSingularName="Klasse" [values]="leagues"></app-list-setting>
+    </div>
+    <div class="col">
+      <app-list-setting icon="list" [isLoading$]="modesLoading$" itemPluralName="Spielmodi" itemSingularName="Spielmodus" [values]="modes"></app-list-setting>
     </div>
     <div class="col">
       <app-misc></app-misc>
