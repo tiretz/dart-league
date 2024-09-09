@@ -80,7 +80,7 @@
             <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
               <mat-label>Spielgeld</mat-label>
               <span matTextPrefix="" class="me-1">€</span>
-              <input matInput type="number" [value]="game?.info?.stake" placeholder="0.00" disabled />
+              <input matInput type="number" [value]="game?.info?.stake" placeholder="0.00" readonly="true" />
             </mat-form-field>
           </div>
         </div>
