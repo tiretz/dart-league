@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
@@ -27,7 +28,7 @@ import { EditTeamDialogComponent } from './components/edit-team-dialog/edit-team
 @Component({
   selector: 'app-home-team',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, MatTableModule, MatSortModule, MatTableSortingCacheDirective, OverlayComponent],
+  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, MatTableModule, MatSortModule, MatMenuModule, MatTableSortingCacheDirective, OverlayComponent],
   templateUrl: './home-team.component.html',
   styleUrl: './home-team.component.scss',
 })

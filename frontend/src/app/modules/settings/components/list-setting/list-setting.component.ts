@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { Observable } from 'rxjs';
@@ -20,7 +21,7 @@ import { EditItemDialogComponent } from './components/edit-item-dialog/edit-item
 @Component({
   selector: 'app-list-setting',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, MatButtonModule, MatDividerModule, DragDropModule, OverlayComponent],
+  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, MatButtonModule, MatDividerModule, DragDropModule, MatMenuModule, OverlayComponent],
   templateUrl: './list-setting.component.html',
   styleUrl: './list-setting.component.scss',
 })

@@ -27,14 +27,19 @@
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let row" class="justify-content-end">
-            <div class="d-flex">
-              <button mat-icon-button matTooltip="Eintrag editieren" (click)="openEditItemDialog(row)">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item matTooltip="Eintrag editieren" (click)="openEditItemDialog(row)">
                 <mat-icon>edit</mat-icon>
+                <span>Editieren</span>
               </button>
-              <button mat-icon-button class="text-danger" matTooltip="Eintrag löschen" (click)="openDeleteItemDialog(row)">
-                <mat-icon>delete</mat-icon>
+              <button mat-menu-item class="text-danger" matTooltip="Eintrag löschen" (click)="openDeleteItemDialog(row)">
+                <mat-icon class="text-danger">delete</mat-icon>
+                <span>Löschen</span>
               </button>
-            </div>
+            </mat-menu>
           </mat-cell>
         </ng-container>
 
