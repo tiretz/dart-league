@@ -80,14 +80,7 @@
             <mat-form-field class="w-100" appearance="outline" subscriptSizing="dynamic">
               <mat-label>Spielgeld</mat-label>
               <span matTextPrefix="" class="me-1">€</span>
-              <input matInput type="number" formControlName="stake" placeholder="0.00" min="0" step="0.5" max="99.5" />
-              @if (formGroup.get('stake')?.value) {
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="formGroup.get('stake')?.patchValue('')">
-                <mat-icon>close</mat-icon>
-              </button>
-              } @if (formGroup.get('stake')?.hasError('required')) {
-              <mat-error>Feld muss einen <strong>gültigen</strong> Wert haben</mat-error>
-              }
+              <input matInput type="number" [value]="game?.info?.stake" placeholder="0.00" disabled />
             </mat-form-field>
           </div>
         </div>

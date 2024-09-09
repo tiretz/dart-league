@@ -27,7 +27,6 @@ export interface IGameInfoChange {
   league?: string;
   matchday?: number;
   mode?: string;
-  stake?: number;
 }
 
 export interface IGuestTeam extends IHomeTeam {}

@@ -63,7 +63,6 @@ export class GameInfoComponent implements OnDestroy, OnInit {
       matchday: [this.game?.info.matchday, [Validators.required]],
       league: [this.game?.info.league, [Validators.required]],
       mode: [this.game?.info.mode, [Validators.required]],
-      stake: [this.game?.info.stake, [Validators.required]],
     });
 
     this.formGroupValueChangesSubscription = this.formGroup.valueChanges.subscribe({
@@ -82,7 +81,6 @@ export class GameInfoComponent implements OnDestroy, OnInit {
       league: this.formGroup.get('league')?.value,
       matchday: this.formGroup.get('matchday')?.value,
       mode: this.formGroup.get('mode')?.value,
-      stake: this.formGroup.get('stake')?.value,
     };
 
     // this.gameInfoChange.emit(updatedGameInfo);
