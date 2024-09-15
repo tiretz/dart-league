@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+mat-card-header {
+  padding-bottom: 16px;
+}
+
+.mat-mdc-card-avatar {
+  width: auto;
+  height: auto;
+  margin-bottom: 0;
+}
+
+.mat-column-index,
+.mat-column-passnumber,
+.mat-column-rlp,
+.mat-column-stake,
+.mat-column-actions {
+  width: 0px;
+}
+
+button {
+  width: 32px;
+  height: 32px;
+}

@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>
+  <mat-icon>person_check</mat-icon>
+  <span class="ms-2">Gastspieler auswählen</span>
+</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formGroup">
+    <div class="container-fluid px-0">
+      <div class="row g-3">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Vorname</mat-label>
+            <input matInput cdkFocusInitial formControlName="firstName" />
+            @if (formGroup.get('firstName')?.hasError('required')) {
+            <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Nachname</mat-label>
+            <input matInput formControlName="lastName" />
+            @if (formGroup.get('lastName')?.hasError('required')) {
+            <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Passnummer</mat-label>
+            <input matInput formControlName="passnumber" />
+            @if (formGroup.get('passnumber')?.hasError('required')) {
+            <mat-error>Feld darf <strong>nicht</strong> leer sein</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Abbrechen</button>
+  <button mat-flat-button [disabled]="formGroup.invalid" (click)="onSelectPlayer()">
+    <mat-icon>person_check</mat-icon>
+    <span>Auswählen</span>
+  </button>
+</mat-dialog-actions>
