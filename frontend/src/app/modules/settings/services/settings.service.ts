@@ -24,6 +24,42 @@ export class SettingsService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
+  createLeague(name: string): Observable<ILeague> {
+    this.leaguesLoadingSubject.next(true);
+
+    return this.httpClient.post<ILeague>('league', { name }).pipe(finalize(() => this.leaguesLoadingSubject.next(false)));
+  }
+
+  createMode(name: string): Observable<IMode> {
+    this.modesLoadingSubject.next(true);
+
+    return this.httpClient.post<IMode>('mode', { name }).pipe(finalize(() => this.modesLoadingSubject.next(false)));
+  }
+
+  deleteLeague(leagueId: number): Observable<ILeague> {
+    this.leaguesLoadingSubject.next(true);
+
+    return this.httpClient.delete<ILeague>(`league/${leagueId}`).pipe(finalize(() => this.leaguesLoadingSubject.next(false)));
+  }
+
+  deleteMode(modeId: number): Observable<IMode> {
+    this.modesLoadingSubject.next(true);
+
+    return this.httpClient.delete<IMode>(`mode/${modeId}`).pipe(finalize(() => this.modesLoadingSubject.next(false)));
+  }
+
+  editLeague(league: ILeague): Observable<ILeague> {
+    this.leaguesLoadingSubject.next(true);
+
+    return this.httpClient.patch<ILeague>(`league/${league.id}`, league).pipe(finalize(() => this.leaguesLoadingSubject.next(false)));
+  }
+
+  editMode(mode: IMode): Observable<IMode> {
+    this.modesLoadingSubject.next(true);
+
+    return this.httpClient.patch<IMode>(`mode/${mode.id}`, mode).pipe(finalize(() => this.modesLoadingSubject.next(false)));
+  }
+
   getLeagues(): Observable<ILeague[]> {
     this.leaguesLoadingSubject.next(true);
 
@@ -36,15 +72,15 @@ export class SettingsService {
     return this.httpClient.get<IMode[]>('mode').pipe(finalize(() => this.modesLoadingSubject.next(false)));
   }
 
-  postLeagues(league: string): Observable<ILeague> {
+  reorderLeagues(leagues: ILeague[]): Observable<ILeague[]> {
     this.leaguesLoadingSubject.next(true);
 
-    return this.httpClient.post<ILeague>('league', league).pipe(finalize(() => this.leaguesLoadingSubject.next(false)));
+    return this.httpClient.patch<ILeague[]>('league', leagues).pipe(finalize(() => this.leaguesLoadingSubject.next(false)));
   }
 
-  patchLeagues(league: ILeague): Observable<ILeague> {
-    this.leaguesLoadingSubject.next(true);
+  reorderModes(modes: IMode[]): Observable<IMode[]> {
+    this.modesLoadingSubject.next(true);
 
-    return this.httpClient.patch<ILeague>('league', league).pipe(finalize(() => this.leaguesLoadingSubject.next(false)));
+    return this.httpClient.patch<IMode[]>('mode', modes).pipe(finalize(() => this.modesLoadingSubject.next(false)));
   }
 }

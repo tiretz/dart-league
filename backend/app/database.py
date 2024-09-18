@@ -34,26 +34,26 @@ class DatabaseSessionManager:
 
     def __add_initial_leagues(self, session: AsyncSession):
 
-        session.add(LeagueModel(name="A1", order_id=0))
-        session.add(LeagueModel(name="A2", order_id=1))
-        session.add(LeagueModel(name="B1", order_id=2))
-        session.add(LeagueModel(name="B2", order_id=3))
-        session.add(LeagueModel(name="B3", order_id=4))
-        session.add(LeagueModel(name="C1", order_id=5))
-        session.add(LeagueModel(name="C2", order_id=6))
-        session.add(LeagueModel(name="C3", order_id=7))
-        session.add(LeagueModel(name="C4", order_id=8))
-        session.add(LeagueModel(name="C5", order_id=9))
-        session.add(LeagueModel(name="BZ", order_id=10))
-        session.add(LeagueModel(name="PO", order_id=11))
+        session.add(LeagueModel(name="A1", order_index=0))
+        session.add(LeagueModel(name="A2", order_index=1))
+        session.add(LeagueModel(name="B1", order_index=2))
+        session.add(LeagueModel(name="B2", order_index=3))
+        session.add(LeagueModel(name="B3", order_index=4))
+        session.add(LeagueModel(name="C1", order_index=5))
+        session.add(LeagueModel(name="C2", order_index=6))
+        session.add(LeagueModel(name="C3", order_index=7))
+        session.add(LeagueModel(name="C4", order_index=8))
+        session.add(LeagueModel(name="C5", order_index=9))
+        session.add(LeagueModel(name="BZ", order_index=10))
+        session.add(LeagueModel(name="PO", order_index=11))
 
     def __add_initial_modes(self, session: AsyncSession):
 
-        session.add(ModeModel(name="301SO", order_id=0))
-        session.add(ModeModel(name="301MO", order_id=1))
-        session.add(ModeModel(name="501SO", order_id=2))
-        session.add(ModeModel(name="501DO", order_id=3))
-        session.add(ModeModel(name="501MO", order_id=4))
+        session.add(ModeModel(name="301SO", order_index=0))
+        session.add(ModeModel(name="301MO", order_index=1))
+        session.add(ModeModel(name="501SO", order_index=2))
+        session.add(ModeModel(name="501DO", order_index=3))
+        session.add(ModeModel(name="501MO", order_index=4))
 
     async def close(self):
 

@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.team import TeamModel
 
 
-async def create_new(session: AsyncSession) -> TeamModel:
+async def create(session: AsyncSession) -> TeamModel:
     return TeamModel()
 
 

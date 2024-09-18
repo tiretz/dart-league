@@ -9,10 +9,30 @@
   </div>
   <div class="row g-3 mt-0">
     <div class="col">
-      <app-list-setting icon="list" [isLoading$]="leaguesLoading$" itemPluralName="Klassen" itemSingularName="Klasse" [values]="leagues"></app-list-setting>
+      <app-list-setting
+        (createItem)="onCreateLeague($event)"
+        (deleteItem)="onDeleteLeague($event)"
+        (editItem)="onEditLeague($event)"
+        icon="list"
+        [isLoading$]="leaguesLoading$"
+        itemPluralName="Klassen"
+        itemSingularName="Klasse"
+        (reorderItems)="onReorderLeagues($event)"
+        [values]="leagues"
+      ></app-list-setting>
     </div>
     <div class="col">
-      <app-list-setting icon="list" [isLoading$]="modesLoading$" itemPluralName="Spielmodi" itemSingularName="Spielmodus" [values]="modes"></app-list-setting>
+      <app-list-setting
+        (createItem)="onCreateMode($event)"
+        (deleteItem)="onDeleteMode($event)"
+        (editItem)="onEditMode($event)"
+        icon="list"
+        [isLoading$]="modesLoading$"
+        itemPluralName="Spielmodi"
+        itemSingularName="Spielmodus"
+        (reorderItems)="onReorderModes($event)"
+        [values]="modes"
+      ></app-list-setting>
     </div>
     <div class="col">
       <app-misc></app-misc>

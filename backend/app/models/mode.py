@@ -14,6 +14,6 @@ class ModeModel(TableBase):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, index=True)
     name: Mapped[str] = mapped_column(TEXT)
-    order_id: Mapped[int] = mapped_column(SMALLINT)
+    order_index: Mapped[int] = mapped_column(SMALLINT)
 
     games: Mapped[list["GameModel"]] = relationship(back_populates="mode", lazy="joined")

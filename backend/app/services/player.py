@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.player import PlayerModel
 
 
-async def create_new(session: AsyncSession) -> PlayerModel:
+async def create(session: AsyncSession) -> PlayerModel:
     return PlayerModel()
 
 

@@ -35,7 +35,7 @@ export class EditItemDialogComponent implements OnInit {
     const editedItem: IListItem = {
       id: this.data.itemToEdit.id,
       name: this.formGroup.get('item')?.value,
-      order_id: this.data.itemToEdit.order_id,
+      order_index: this.data.itemToEdit.order_index,
     };
 
     this.dialogRef.close(editedItem);

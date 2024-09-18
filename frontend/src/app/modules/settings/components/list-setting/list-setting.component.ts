@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -28,8 +28,18 @@ import { IListItem } from './models/list-item';
   styleUrl: './list-setting.component.scss',
 })
 export class ListSettingComponent {
+  @Output()
+  createItem: EventEmitter<string> = new EventEmitter<string>();
+
   protected dataSource = new MatTableDataSource<IListItem>();
+
+  @Output()
+  deleteItem: EventEmitter<IListItem> = new EventEmitter<IListItem>();
+
   protected displayedColumns = ['drag', 'value', 'actions'];
+
+  @Output()
+  editItem: EventEmitter<IListItem> = new EventEmitter<IListItem>();
 
   @Input({ required: true })
   icon?: string;
@@ -43,6 +53,9 @@ export class ListSettingComponent {
   @Input({ required: true })
   itemSingularName?: string;
 
+  @Output()
+  reorderItems: EventEmitter<IListItem[]> = new EventEmitter<IListItem[]>();
+
   @ViewChild(MatTable, { static: true })
   table?: MatTable<IListItem>;
 
@@ -53,16 +66,15 @@ export class ListSettingComponent {
 
   constructor(private readonly dialogService: MatDialog) {}
 
-  openAddNewItemDialog(): void {
+  openCreateItemDialog(): void {
     const createItemDialogRef = this.dialogService.open(CreateItemDialogComponent, { data: this.itemSingularName });
 
     createItemDialogRef.afterClosed().subscribe((newItem: string | undefined) => {
-      if (newItem) {
-        console.error(`Item '${newItem}' erstellt.`);
+      if (!newItem) {
         return;
       }
 
-      console.error('Erstellen eines neuen Items abgebrochen.');
+      this.createItem.emit(newItem);
     });
   }
 
@@ -72,12 +84,11 @@ export class ListSettingComponent {
     const deleteDialogRef = this.dialogService.open(DeleteDialogComponent, { data: dialogData });
 
     deleteDialogRef.afterClosed().subscribe((result: boolean | undefined) => {
-      if (result) {
-        console.error(`${this.itemSingularName} '${itemToDelete.name}' gelöscht.`);
+      if (!result) {
         return;
       }
 
-      console.error(`Löschen von ${this.itemSingularName} '${itemToDelete.name}' abgebrochen.`);
+      this.deleteItem.emit(itemToDelete);
     });
   }
 
@@ -85,12 +96,11 @@ export class ListSettingComponent {
     const editPlayerDialogRef = this.dialogService.open(EditItemDialogComponent, { data: { itemName: this.itemSingularName, itemToEdit } });
 
     editPlayerDialogRef.afterClosed().subscribe((editedItem: IListItem | undefined) => {
-      if (editedItem) {
-        console.error(`Item '${editedItem.name}' beabeitet.`);
+      if (!editedItem) {
         return;
       }
 
-      console.error(`Bearbeiten des Items '${itemToEdit.name}' abgebrochen.`);
+      this.editItem.emit(editedItem);
     });
   }
 
@@ -100,5 +110,7 @@ export class ListSettingComponent {
     moveItemInArray(this.dataSource.data, previousIndex, event.currentIndex);
 
     this.table?.renderRows();
+
+    this.reorderItems.emit(this.dataSource.data);
   }
 }

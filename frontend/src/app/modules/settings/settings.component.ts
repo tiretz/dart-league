@@ -53,4 +53,68 @@ export class SettingsComponent implements OnInit {
       },
     });
   }
+
+  onCreateLeague(name: string): void {
+    this.settingsService.createLeague(name).subscribe({
+      next: (createdLeague: ILeague) => {
+        this.getLeagues();
+      },
+    });
+  }
+
+  onCreateMode(name: string): void {
+    this.settingsService.createMode(name).subscribe({
+      next: (createdMode: IMode) => {
+        this.getModes();
+      },
+    });
+  }
+
+  onDeleteLeague(league: ILeague): void {
+    this.settingsService.deleteLeague(league.id).subscribe({
+      next: (deletedLeague: ILeague) => {
+        this.getLeagues();
+      },
+    });
+  }
+
+  onDeleteMode(mode: IMode): void {
+    this.settingsService.deleteMode(mode.id).subscribe({
+      next: (deletedMode: IMode) => {
+        this.getModes();
+      },
+    });
+  }
+
+  onEditLeague(league: ILeague): void {
+    this.settingsService.editLeague(league).subscribe({
+      next: (editedLeague: ILeague) => {
+        this.getLeagues();
+      },
+    });
+  }
+
+  onEditMode(mode: IMode): void {
+    this.settingsService.editMode(mode).subscribe({
+      next: (editedMode: IMode) => {
+        this.getModes();
+      },
+    });
+  }
+
+  onReorderLeagues(leagues: ILeague[]): void {
+    this.settingsService.reorderLeagues(leagues).subscribe({
+      next: (reorderedLeagues: ILeague[]) => {
+        this.leagues = reorderedLeagues;
+      },
+    });
+  }
+
+  onReorderModes(modes: IMode[]): void {
+    this.settingsService.reorderModes(modes).subscribe({
+      next: (reorderedModes: IMode[]) => {
+        this.modes = reorderedModes;
+      },
+    });
+  }
 }

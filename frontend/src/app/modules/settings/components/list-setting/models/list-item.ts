@@ -1,5 +1,5 @@
 export interface IListItem {
   id: number;
   name: string;
-  order_id: number;
+  order_index: number;
 }

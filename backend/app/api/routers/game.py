@@ -11,7 +11,7 @@ router: APIRouter = APIRouter(prefix="/game", tags=["game"])
 @router.post("", response_model=GameSchema, description="Create new game")
 async def create_new(*, session: AsyncSessionDep):
 
-    return await service.create_new(session)
+    return await service.create(session)
 
 
 @router.get("", response_model=list[GameSchema], description="Get all games")
