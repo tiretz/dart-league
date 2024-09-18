@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { IListItem } from '../../models/list-item';
+
 @Component({
   selector: 'app-edit-item-dialog',
   standalone: true,
@@ -19,18 +21,22 @@ import { MatInputModule } from '@angular/material/input';
 export class EditItemDialogComponent implements OnInit {
   formGroup!: FormGroup;
 
-  data: { itemName: string; itemToEdit: string } = inject(MAT_DIALOG_DATA);
+  data: { itemName: string; itemToEdit: IListItem } = inject(MAT_DIALOG_DATA);
 
   constructor(private readonly dialogRef: MatDialogRef<EditItemDialogComponent>, private readonly formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      item: new FormControl(this.data.itemToEdit, { validators: [Validators.required] }),
+      item: new FormControl(this.data.itemToEdit.name, { validators: [Validators.required] }),
     });
   }
 
   onSaveItem(): void {
-    const editedItem: string = this.formGroup.get('item')?.value;
+    const editedItem: IListItem = {
+      id: this.data.itemToEdit.id,
+      name: this.formGroup.get('item')?.value,
+      order_id: this.data.itemToEdit.order_id,
+    };
 
     this.dialogRef.close(editedItem);
   }

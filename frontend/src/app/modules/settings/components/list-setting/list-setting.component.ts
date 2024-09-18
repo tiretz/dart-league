@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,6 +18,8 @@ import { OverlayComponent } from '../../../../shared/components/overlay/overlay.
 import { CreateItemDialogComponent } from './components/create-item-dialog/create-item-dialog.component';
 import { EditItemDialogComponent } from './components/edit-item-dialog/edit-item-dialog.component';
 
+import { IListItem } from './models/list-item';
+
 @Component({
   selector: 'app-list-setting',
   standalone: true,
@@ -25,8 +27,8 @@ import { EditItemDialogComponent } from './components/edit-item-dialog/edit-item
   templateUrl: './list-setting.component.html',
   styleUrl: './list-setting.component.scss',
 })
-export class ListSettingComponent implements OnInit {
-  protected dataSource = new MatTableDataSource<string>();
+export class ListSettingComponent {
+  protected dataSource = new MatTableDataSource<IListItem>();
   protected displayedColumns = ['drag', 'value', 'actions'];
 
   @Input({ required: true })
@@ -42,16 +44,14 @@ export class ListSettingComponent implements OnInit {
   itemSingularName?: string;
 
   @ViewChild(MatTable, { static: true })
-  table?: MatTable<string>;
+  table?: MatTable<IListItem>;
 
   @Input({ required: true })
-  values?: string[];
+  set values(items: IListItem[] | undefined) {
+    this.dataSource.data = items || [];
+  }
 
   constructor(private readonly dialogService: MatDialog) {}
-
-  ngOnInit(): void {
-    this.dataSource.data = ['Item 1', 'Item 2', 'Item 3'];
-  }
 
   openAddNewItemDialog(): void {
     const createItemDialogRef = this.dialogService.open(CreateItemDialogComponent, { data: this.itemSingularName });
@@ -66,31 +66,31 @@ export class ListSettingComponent implements OnInit {
     });
   }
 
-  openDeleteItemDialog(itemToDelete: string): void {
-    const dialogData: DeleteDialogData = { text: `${this.itemSingularName} '${itemToDelete}' wirklich löschen?`, title: `${this.itemSingularName} löschen` };
+  openDeleteItemDialog(itemToDelete: IListItem): void {
+    const dialogData: DeleteDialogData = { text: `${this.itemSingularName} '${itemToDelete.name}' wirklich löschen?`, title: `${this.itemSingularName} löschen` };
 
     const deleteDialogRef = this.dialogService.open(DeleteDialogComponent, { data: dialogData });
 
     deleteDialogRef.afterClosed().subscribe((result: boolean | undefined) => {
       if (result) {
-        console.error(`${this.itemSingularName} '${itemToDelete}' gelöscht.`);
+        console.error(`${this.itemSingularName} '${itemToDelete.name}' gelöscht.`);
         return;
       }
 
-      console.error(`Löschen von ${this.itemSingularName} '${itemToDelete}' abgebrochen.`);
+      console.error(`Löschen von ${this.itemSingularName} '${itemToDelete.name}' abgebrochen.`);
     });
   }
 
-  openEditItemDialog(itemToEdit: string): void {
+  openEditItemDialog(itemToEdit: IListItem): void {
     const editPlayerDialogRef = this.dialogService.open(EditItemDialogComponent, { data: { itemName: this.itemSingularName, itemToEdit } });
 
-    editPlayerDialogRef.afterClosed().subscribe((editedItem: string | undefined) => {
+    editPlayerDialogRef.afterClosed().subscribe((editedItem: IListItem | undefined) => {
       if (editedItem) {
-        console.error(`Item '${editedItem}' beabeitet.`);
+        console.error(`Item '${editedItem.name}' beabeitet.`);
         return;
       }
 
-      console.error(`Bearbeiten des Items '${itemToEdit}' abgebrochen.`);
+      console.error(`Bearbeiten des Items '${itemToEdit.name}' abgebrochen.`);
     });
   }
 

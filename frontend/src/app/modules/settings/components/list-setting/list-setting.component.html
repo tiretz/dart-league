@@ -21,7 +21,7 @@
           <mat-header-cell *matHeaderCellDef>
             <span class="text-nowrap">{{ itemSingularName }}</span>
           </mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row }}</mat-cell>
+          <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">

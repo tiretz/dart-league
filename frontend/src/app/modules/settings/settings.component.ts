@@ -5,6 +5,9 @@ import { MatCardModule } from '@angular/material/card';
 
 import { Observable } from 'rxjs';
 
+import { ILeague } from '../../core/models/league.interface';
+import { IMode } from '../../core/models/mode.interface';
+
 import { HomePlayersComponent } from './components/home-players/home-players.component';
 import { HomeTeamComponent } from './components/home-team/home-team.component';
 import { ListSettingComponent } from './components/list-setting/list-setting.component';
@@ -20,9 +23,9 @@ import { SettingsService } from './services/settings.service';
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit {
-  protected leagues?: string[] = ['A1', 'B1', 'BZ'];
+  protected leagues?: ILeague[];
   protected leaguesLoading$?: Observable<boolean>;
-  protected modes?: string[] = ['301SO', '301DO', '501SO', '501DO'];
+  protected modes?: IMode[];
   protected modesLoading$?: Observable<boolean>;
 
   constructor(private readonly settingsService: SettingsService) {}
@@ -30,5 +33,24 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.leaguesLoading$ = this.settingsService.leaguesLoading$;
     this.modesLoading$ = this.settingsService.modesLoading$;
+
+    this.getLeagues();
+    this.getModes();
+  }
+
+  getLeagues(): void {
+    this.settingsService.getLeagues().subscribe({
+      next: (leagues: ILeague[]) => {
+        this.leagues = leagues;
+      },
+    });
+  }
+
+  getModes(): void {
+    this.settingsService.getModes().subscribe({
+      next: (modes: IMode[]) => {
+        this.modes = modes;
+      },
+    });
   }
 }
