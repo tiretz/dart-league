@@ -16,8 +16,7 @@ import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/comp
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
-import { ICreateHomeTeam } from '../../models/create-home-team.interface';
-import { IEditHomeTeam } from '../../models/edit-home-team.interface';
+import { ICreateHomeTeam, IPatchHomeTeam } from '../../models/home-team.interface';
 import { IHomeTeam } from '../../models/home-team.interface';
 
 import { SettingsService } from '../../services/settings.service';
@@ -121,7 +120,7 @@ export class HomeTeamComponent {
   openEditTeamDialog(teamToEdit: IHomeTeam): void {
     const editTeamDialogRef = this.dialogService.open(EditTeamDialogComponent, { data: teamToEdit });
 
-    editTeamDialogRef.afterClosed().subscribe((editedTeam: IEditHomeTeam | undefined) => {
+    editTeamDialogRef.afterClosed().subscribe((editedTeam: IPatchHomeTeam | undefined) => {
       if (editedTeam) {
         console.error(`Heimmannschaft '${editedTeam.name}' bearbeitet.`);
         return;

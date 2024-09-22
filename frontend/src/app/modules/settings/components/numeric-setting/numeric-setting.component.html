@@ -1,9 +1,9 @@
 <mat-label>{{ text }} :</mat-label>
 <mat-form-field class="ms-3" appearance="outline" subscriptSizing="dynamic">
   <span matTextPrefix class="me-1">€</span>
-  <input matInput type="number" placeholder="0.00" min="0" step="0.5" max="99.5" [(ngModel)]="value" />
+  <input matInput type="number" placeholder="0.00" min="0" step="0.5" max="99.5" [value]="value" (change)="onValueChange($event)" />
   @if (value) {
-  <button matSuffix mat-icon-button aria-label="Clear" (click)="value = 0">
+  <button matSuffix mat-icon-button aria-label="Clear" (click)="onResetValue()">
     <mat-icon>close</mat-icon>
   </button>
   }

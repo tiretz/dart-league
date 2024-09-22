@@ -8,6 +8,7 @@ from app.config import settings
 from app.models.game import GameModel
 from app.models.league import LeagueModel
 from app.models.mode import ModeModel
+from app.models.settings import SettingsModel
 from app.models.table_base import TableBase
 
 
@@ -26,6 +27,7 @@ class DatabaseSessionManager:
 
                 self.__add_initial_leagues(session)
                 self.__add_initial_modes(session)
+                self.__add_initial_settings(session)
 
                 await session.commit()
 
@@ -54,6 +56,10 @@ class DatabaseSessionManager:
         session.add(ModeModel(name="501SO", order_index=2))
         session.add(ModeModel(name="501DO", order_index=3))
         session.add(ModeModel(name="501MO", order_index=4))
+
+    def __add_initial_settings(self, session: AsyncSession):
+
+        session.add(SettingsModel(stake=0.0))
 
     async def close(self):
 

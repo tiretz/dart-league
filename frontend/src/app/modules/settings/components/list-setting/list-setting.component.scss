@@ -20,6 +20,11 @@ mat-divider {
   margin-bottom: 16px;
 }
 
+.table-container {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
 mat-row.item-row:hover {
   background: whitesmoke;
 }

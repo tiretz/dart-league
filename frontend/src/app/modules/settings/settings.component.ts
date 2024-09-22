@@ -11,14 +11,14 @@ import { IMode } from '../../core/models/mode.interface';
 import { HomePlayersComponent } from './components/home-players/home-players.component';
 import { HomeTeamComponent } from './components/home-team/home-team.component';
 import { ListSettingComponent } from './components/list-setting/list-setting.component';
-import { MiscComponent } from './components/misc/misc.component';
+import { MiscSettingsComponent } from './components/misc-settings/misc-settings.component';
 
 import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, MatCardModule, HomeTeamComponent, HomePlayersComponent, MiscComponent, ListSettingComponent],
+  imports: [CommonModule, MatCardModule, HomeTeamComponent, HomePlayersComponent, MiscSettingsComponent, ListSettingComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
@@ -87,7 +87,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onEditLeague(league: ILeague): void {
-    this.settingsService.editLeague(league).subscribe({
+    this.settingsService.patchLeague(league).subscribe({
       next: (editedLeague: ILeague) => {
         this.getLeagues();
       },
@@ -95,7 +95,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onEditMode(mode: IMode): void {
-    this.settingsService.editMode(mode).subscribe({
+    this.settingsService.patchMode(mode).subscribe({
       next: (editedMode: IMode) => {
         this.getModes();
       },

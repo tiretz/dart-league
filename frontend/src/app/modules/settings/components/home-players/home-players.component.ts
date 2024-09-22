@@ -16,8 +16,7 @@ import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/comp
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
-import { ICreateHomePlayer } from '../../models/create-home-player.interface';
-import { IEditHomePlayer } from '../../models/edit-home-player.interface';
+import { ICreateHomePlayer, IPatchHomePlayer } from '../../models/home-player.interface';
 import { IHomePlayer } from '../../models/home-player.interface';
 
 import { SettingsService } from '../../services/settings.service';
@@ -133,7 +132,7 @@ export class HomePlayersComponent {
   openEditPlayerDialog(playerToEdit: IHomePlayer): void {
     const editPlayerDialogRef = this.dialogService.open(EditPlayerDialogComponent, { data: playerToEdit });
 
-    editPlayerDialogRef.afterClosed().subscribe((editedPlayer: IEditHomePlayer | undefined) => {
+    editPlayerDialogRef.afterClosed().subscribe((editedPlayer: IPatchHomePlayer | undefined) => {
       if (editedPlayer) {
         console.error(`Heimspieler '${editedPlayer.first_name} ${editedPlayer.last_name}' beabeitet.`);
         return;

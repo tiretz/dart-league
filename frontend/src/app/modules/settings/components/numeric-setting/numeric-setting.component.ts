@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -15,9 +15,21 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './numeric-setting.component.scss',
 })
 export class NumericSettingComponent {
+  @Output()
+  valueChange: EventEmitter<number> = new EventEmitter<number>();
+
   @Input({ required: true })
   text!: string;
 
   @Input({ required: true })
   value!: number;
+
+  onResetValue() {
+    this.value = 0;
+    this.valueChange.emit(0);
+  }
+
+  onValueChange(event: Event) {
+    this.valueChange.emit(Number((event.target as HTMLInputElement).value));
+  }
 }

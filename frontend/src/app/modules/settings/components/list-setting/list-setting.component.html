@@ -9,48 +9,50 @@
   <mat-divider></mat-divider>
   <mat-card-content>
     <app-overlay [isVisible]="isLoading$ | async" [message]="'Lade ' + itemPluralName + ' ...'">
-      <table mat-table matSort [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="dataSource">
-        <ng-container matColumnDef="drag">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <mat-icon class="drag-cursor">reorder</mat-icon>
-          </mat-cell>
-        </ng-container>
+      <div class="table-container">
+        <table mat-table matSort [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="dataSource">
+          <ng-container matColumnDef="drag">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <mat-icon class="drag-cursor">reorder</mat-icon>
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="value">
-          <mat-header-cell *matHeaderCellDef>
-            <span class="text-nowrap">{{ itemSingularName }}</span>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="value">
+            <mat-header-cell *matHeaderCellDef>
+              <span class="text-nowrap">{{ itemSingularName }}</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let row" class="justify-content-end">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item matTooltip="Eintrag editieren" (click)="openEditItemDialog(row)">
-                <mat-icon>edit</mat-icon>
-                <span>Editieren</span>
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row" class="justify-content-end">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-menu-item class="text-danger" matTooltip="Eintrag löschen" (click)="openDeleteItemDialog(row)">
-                <mat-icon class="text-danger">delete</mat-icon>
-                <span>Löschen</span>
-              </button>
-            </mat-menu>
-          </mat-cell>
-        </ng-container>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item matTooltip="Eintrag editieren" (click)="openEditItemDialog(row)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Editieren</span>
+                </button>
+                <button mat-menu-item class="text-danger" matTooltip="Eintrag löschen" (click)="openDeleteItemDialog(row)">
+                  <mat-icon class="text-danger">delete</mat-icon>
+                  <span>Löschen</span>
+                </button>
+              </mat-menu>
+            </mat-cell>
+          </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns" class="item-row" cdkDrag [cdkDragData]="row"></mat-row>
+          <mat-header-row *matHeaderRowDef="displayedColumns" class="d-none"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns" class="item-row" cdkDrag [cdkDragData]="row"></mat-row>
 
-        <!-- Row shown when there is no matching data. -->
-        <mat-row *matNoDataRow>
-          <td class="mat-cell p-2 text-center" [colSpan]="displayedColumns.length">Keine Daten vorhanden</td>
-        </mat-row>
-      </table>
+          <!-- Row shown when there is no matching data. -->
+          <mat-row *matNoDataRow>
+            <td class="mat-cell p-2 text-center" [colSpan]="displayedColumns.length">Keine Daten vorhanden</td>
+          </mat-row>
+        </table>
+      </div>
     </app-overlay>
   </mat-card-content>
 </mat-card>

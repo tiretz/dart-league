@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 
-import { IEditHomePlayer } from '../../../../models/edit-home-player.interface';
+import { IPatchHomePlayer } from '../../../../models/home-player.interface';
 import { IHomePlayer } from '../../../../models/home-player.interface';
 import { IHomeTeam } from '../../../../models/home-team.interface';
 
@@ -47,7 +47,7 @@ export class EditPlayerDialogComponent {
   }
 
   onSavePlayer(): void {
-    const editedPlayer: IEditHomePlayer = {
+    const editedPlayer: IPatchHomePlayer = {
       first_name: this.formGroup.get('firstName')?.value,
       last_name: this.formGroup.get('lastName')?.value,
       passnumber: this.formGroup.get('passnumber')?.value,

@@ -7,7 +7,7 @@
   <mat-divider></mat-divider>
   <mat-card-content>
     <app-overlay [isVisible]="isLoading$ | async" message="Lade sonstige Einstellungen ...">
-      <app-numeric-setting text="Stake" [value]="0"></app-numeric-setting>
+      <app-numeric-setting (valueChange)="onStakeValueChange($event)" text="Stake" [value]="settings?.stake || 0.0"></app-numeric-setting>
     </app-overlay>
   </mat-card-content>
 </mat-card>

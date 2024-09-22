@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ICreateHomeTeam } from '../../../../models/create-home-team.interface';
+import { ICreateHomeTeam } from '../../../../models/home-team.interface';
 
 @Component({
   selector: 'app-create-team-dialog',

@@ -13,20 +13,38 @@ import { OverlayComponent } from '../../../../shared/components/overlay/overlay.
 import { SettingsService } from '../../services/settings.service';
 
 import { NumericSettingComponent } from '../numeric-setting/numeric-setting.component';
+import { IMiscSettings } from '../../models/misc-settings.interface';
 
 @Component({
-  selector: 'app-misc',
+  selector: 'app-misc-settings',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, OverlayComponent, NumericSettingComponent],
-  templateUrl: './misc.component.html',
-  styleUrl: './misc.component.scss',
+  templateUrl: './misc-settings.component.html',
+  styleUrl: './misc-settings.component.scss',
 })
-export class MiscComponent {
+export class MiscSettingsComponent {
   protected isLoading$?: Observable<boolean>;
+  protected settings?: IMiscSettings;
 
   constructor(private readonly settingsService: SettingsService) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.settingsService.miscLoading$;
+    this.isLoading$ = this.settingsService.miscSettingsLoading$;
+  }
+
+  getMiscSettings(): void {
+    this.settingsService.getMiscSettings().subscribe({
+      next: (miscSettings: IMiscSettings) => {
+        this.settings = miscSettings;
+      },
+    });
+  }
+
+  onStakeValueChange(stake: number): void {
+    this.settingsService.patchMiscSettings({ stake }).subscribe({
+      next: (miscSettings: IMiscSettings) => {
+        this.settings = miscSettings;
+      },
+    });
   }
 }

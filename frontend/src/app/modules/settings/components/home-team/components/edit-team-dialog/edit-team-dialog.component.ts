@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { IEditHomeTeam } from '../../../../models/edit-home-team.interface';
+import { IPatchHomeTeam } from '../../../../models/home-team.interface';
 import { IHomeTeam } from '../../../../models/home-team.interface';
 
 @Component({
@@ -36,7 +36,7 @@ export class EditTeamDialogComponent {
   }
 
   onSaveTeam(): void {
-    const editedTeam: IEditHomeTeam = {
+    const editedTeam: IPatchHomeTeam = {
       name: this.formGroup.get('name')?.value,
       league: this.formGroup.get('league')?.value,
     };
