@@ -10,8 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import { ILeague } from '../../../../../../core/models/league.interface';
+
 import { IPatchHomeTeam } from '../../../../models/home-team.interface';
 import { IHomeTeam } from '../../../../models/home-team.interface';
+
+import { SettingsService } from '../../../../services/settings.service';
 
 @Component({
   selector: 'app-edit-team-dialog',
@@ -22,23 +26,30 @@ import { IHomeTeam } from '../../../../models/home-team.interface';
 })
 export class EditTeamDialogComponent {
   formGroup!: FormGroup;
-  leagues?: string[] = ['A1', 'B1'];
+  leagues?: ILeague[];
 
   team: IHomeTeam = inject(MAT_DIALOG_DATA);
 
-  constructor(private readonly dialogRef: MatDialogRef<EditTeamDialogComponent>, private readonly formBuilder: FormBuilder) {}
+  constructor(private readonly dialogRef: MatDialogRef<EditTeamDialogComponent>, private readonly formBuilder: FormBuilder, private readonly settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       name: new FormControl(this.team.name, { validators: [Validators.required] }),
-      league: new FormControl(this.team.league, { validators: [Validators.required] }),
+      league: new FormControl(this.team.league.id, { validators: [Validators.required] }),
+    });
+
+    this.settingsService.getLeagues().subscribe({
+      next: (leagues: ILeague[]) => {
+        this.leagues = leagues;
+      },
     });
   }
 
   onSaveTeam(): void {
     const editedTeam: IPatchHomeTeam = {
+      id: this.team.id,
       name: this.formGroup.get('name')?.value,
-      league: this.formGroup.get('league')?.value,
+      leagueId: this.formGroup.get('league')?.value,
     };
 
     this.dialogRef.close(editedTeam);

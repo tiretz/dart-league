@@ -20,6 +20,11 @@ mat-divider {
   margin-bottom: 16px;
 }
 
+.table-container {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
 tr.home-teams-row:hover {
   background: whitesmoke;
 }
@@ -28,7 +33,7 @@ tr.home-teams-row:active {
   background: #efefef;
 }
 
-.mat-column-id,
+.mat-column-number,
 .mat-column-league,
 .mat-column-numberOfPlayers,
 .mat-column-actions {

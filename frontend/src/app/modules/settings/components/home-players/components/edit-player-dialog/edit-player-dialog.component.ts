@@ -27,12 +27,7 @@ export class EditPlayerDialogComponent {
   formGroup!: FormGroup;
   homeTeams?: IHomeTeam[];
 
-  constructor(private readonly dialogRef: MatDialogRef<EditPlayerDialogComponent>, private readonly formBuilder: FormBuilder) {
-    this.homeTeams = [
-      { id: 1, league: 'A1', name: 'Test', number_of_players: 5 },
-      { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },
-    ];
-  }
+  constructor(private readonly dialogRef: MatDialogRef<EditPlayerDialogComponent>, private readonly formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({

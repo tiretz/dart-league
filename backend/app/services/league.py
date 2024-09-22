@@ -8,19 +8,19 @@ from app.models.league import LeagueModel
 from app.schemas.league import CreateLeagueSchema, LeagueSchema, PatchLeagueSchema
 
 
-async def create(session: AsyncSession, league: CreateLeagueSchema) -> LeagueSchema:
+async def create(session: AsyncSession, league_to_create: CreateLeagueSchema) -> LeagueSchema:
 
     max_order_index: int | None = await session.scalar(select(func.max(LeagueModel.order_index)))
 
-    createdLeague: LeagueModel = LeagueModel(name=league.name, order_index=(max_order_index + 1) if max_order_index else 0)
+    league: LeagueModel = LeagueModel(name=league_to_create.name, order_index=(max_order_index + 1) if max_order_index else 0)
 
-    session.add(createdLeague)
+    session.add(league)
 
     await session.commit()
 
-    await session.refresh(createdLeague)
+    await session.refresh(league)
 
-    return LeagueSchema.model_validate(createdLeague)
+    return get_model_from_schema(league)
 
 
 async def delete(session: AsyncSession, league_id: int) -> LeagueSchema:
@@ -31,14 +31,14 @@ async def delete(session: AsyncSession, league_id: int) -> LeagueSchema:
 
     await session.commit()
 
-    return LeagueSchema.model_validate(league)
+    return get_model_from_schema(league)
 
 
 async def get_all(session: AsyncSession) -> list[LeagueSchema]:
 
     leagues: Sequence[LeagueModel] = (await session.scalars(select(LeagueModel).order_by(LeagueModel.order_index))).unique().all()
 
-    return [LeagueSchema.model_validate(league) for league in leagues]
+    return [get_model_from_schema(league) for league in leagues]
 
 
 async def get_by_id(session: AsyncSession, league_id: int) -> LeagueModel:
@@ -51,24 +51,29 @@ async def get_by_id(session: AsyncSession, league_id: int) -> LeagueModel:
     return league
 
 
+def get_model_from_schema(model: LeagueModel) -> LeagueSchema:
+
+    return LeagueSchema(id=model.id, name=model.name, order_index=model.order_index)
+
+
 async def get_single(session: AsyncSession, league_id: int) -> LeagueSchema:
 
     league: LeagueModel = await get_by_id(session, league_id)
 
-    return LeagueSchema.model_validate(league)
+    return get_model_from_schema(league)
 
 
-async def patch(session: AsyncSession, league_id: int, patchedLeague: PatchLeagueSchema) -> LeagueSchema:
+async def patch(session: AsyncSession, league_id: int, patched_league: PatchLeagueSchema) -> LeagueSchema:
 
-    league_to_update: LeagueModel = await get_by_id(session, league_id)
+    league: LeagueModel = await get_by_id(session, league_id)
 
-    league_to_update.name = patchedLeague.name
+    league.name = patched_league.name
 
-    session.add(league_to_update)
+    session.add(league)
 
     await session.commit()
 
-    return LeagueSchema.model_validate(league_to_update)
+    return get_model_from_schema(league)
 
 
 async def reorder(session: AsyncSession, leagues: list[LeagueSchema]) -> list[LeagueSchema]:

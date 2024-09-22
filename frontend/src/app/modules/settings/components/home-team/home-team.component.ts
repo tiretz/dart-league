@@ -12,12 +12,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
+import sortingDataAccessor from '../../../../core/utils/sorting-data-accessor';
+
 import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
 
-import { ICreateHomeTeam, IPatchHomeTeam } from '../../models/home-team.interface';
-import { IHomeTeam } from '../../models/home-team.interface';
+import { ICreateHomeTeam, IHomeTeam, IPatchHomeTeam } from '../../models/home-team.interface';
 
 import { SettingsService } from '../../services/settings.service';
 
@@ -32,35 +33,8 @@ import { EditTeamDialogComponent } from './components/edit-team-dialog/edit-team
   styleUrl: './home-team.component.scss',
 })
 export class HomeTeamComponent {
-  protected columns = [
-    {
-      columnDef: 'id',
-      header: 'Nr.',
-      cell: (element: IHomeTeam) => `${element.id}`,
-    },
-    {
-      columnDef: 'name',
-      header: 'Name',
-      cell: (element: IHomeTeam) => `${element.name}`,
-    },
-    {
-      columnDef: 'league',
-      header: 'Spielklasse',
-      cell: (element: IHomeTeam) => `${element.league}`,
-    },
-    {
-      columnDef: 'numberOfPlayers',
-      header: 'Anzahl Spieler',
-      cell: (element: IHomeTeam) => `${element.number_of_players}`,
-    },
-    {
-      columnDef: 'actions',
-      header: '',
-      cell: (element: IHomeTeam) => '',
-    },
-  ];
+  protected columns = ['number', 'name', 'league', 'numberOfPlayers', 'actions'];
   protected dataSource = new MatTableDataSource<IHomeTeam>();
-  protected displayedColumns = this.columns.map((c) => c.columnDef);
 
   protected isLoading$?: Observable<boolean>;
 
@@ -73,32 +47,40 @@ export class HomeTeamComponent {
     this.isLoading$ = this.settingsService.homeTeamsLoading$;
 
     this.dataSource.sort = this.sort;
-    this.dataSource.sortingDataAccessor = (item: IHomeTeam, property: string) => {
-      switch (property) {
-        case 'numberOfPlayers':
-          return item.number_of_players;
+    this.dataSource.sortingDataAccessor = (data: IHomeTeam, sortHeaderId: string) => {
+      switch (sortHeaderId) {
+        case 'league':
+          return sortingDataAccessor.nestedProperty(data, 'league.name');
 
         default:
-          return (item as any)[property];
+          return sortingDataAccessor.nestedProperty(data, sortHeaderId);
       }
     };
 
-    this.dataSource.data = [
-      { id: 1, league: 'A1', name: 'Test', number_of_players: 5 },
-      { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },
-    ];
+    this.getHomeTeams();
+  }
+
+  private getHomeTeams(): void {
+    this.settingsService.getHomeTeams().subscribe({
+      next: (homeTeams: IHomeTeam[]) => {
+        this.dataSource.data = homeTeams;
+      },
+    });
   }
 
   openCreateTeamDialog(): void {
     const createTeamDialogRef = this.dialogService.open(CreateTeamDialogComponent);
 
     createTeamDialogRef.afterClosed().subscribe((newTeam: ICreateHomeTeam | undefined) => {
-      if (newTeam) {
-        console.error(`Heimmannschaft '${newTeam.name}' erstellt.`);
+      if (!newTeam) {
         return;
       }
 
-      console.error('Erstellen einer Heimmannschaft abgebrochen.');
+      this.settingsService.createHomeTeam(newTeam).subscribe({
+        next: (homeTeam: IHomeTeam) => {
+          this.getHomeTeams();
+        },
+      });
     });
   }
 
@@ -108,12 +90,15 @@ export class HomeTeamComponent {
     const deleteDialogRef = this.dialogService.open(DeleteDialogComponent, { data: dialogData });
 
     deleteDialogRef.afterClosed().subscribe((result: boolean | undefined) => {
-      if (result) {
-        console.error(`Heimmannschaft '${teamToDelete.name}' gelöscht.`);
+      if (!result) {
         return;
       }
 
-      console.error(`Löschen von Heimmannschaft '${teamToDelete.name}' abgebrochen.`);
+      this.settingsService.deleteHomeTeam(teamToDelete.id).subscribe({
+        next: (homeTeam: IHomeTeam) => {
+          this.getHomeTeams();
+        },
+      });
     });
   }
 
@@ -121,12 +106,15 @@ export class HomeTeamComponent {
     const editTeamDialogRef = this.dialogService.open(EditTeamDialogComponent, { data: teamToEdit });
 
     editTeamDialogRef.afterClosed().subscribe((editedTeam: IPatchHomeTeam | undefined) => {
-      if (editedTeam) {
-        console.error(`Heimmannschaft '${editedTeam.name}' bearbeitet.`);
+      if (!editedTeam) {
         return;
       }
 
-      console.error(`Bearbeiten von Heimmannschaft '${teamToEdit.name}' abgebrochen.`);
+      this.settingsService.patchHomeTeam(editedTeam).subscribe({
+        next: (homeTeam: IHomeTeam) => {
+          this.getHomeTeams();
+        },
+      });
     });
   }
 }

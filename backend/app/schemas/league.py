@@ -1,19 +1,19 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, Field
 
 
 class CreateLeagueSchema(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
     name: str
 
 
 class LeagueSchema(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
     id: int
     name: str
-    order_index: int
+    order_index: int = Field(serialization_alias="orderIndex")
 
 
-class PatchLeagueSchema(LeagueSchema):
-    pass
+class PatchLeagueSchema(CreateLeagueSchema):
+
+    id: int
+    order_index: int = Field(validation_alias="orderIndex")

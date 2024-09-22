@@ -23,7 +23,7 @@
             <mat-label>Spielklasse</mat-label>
             <mat-select formControlName="league">
               @for (league of leagues; track league) {
-              <mat-option [value]="league">{{ league }}</mat-option>
+              <mat-option [value]="league.id">{{ league.name }}</mat-option>
               }
             </mat-select>
             @if (formGroup.get('league')?.hasError('required')) {

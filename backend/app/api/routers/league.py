@@ -27,7 +27,7 @@ async def get_all(*, session: AsyncSessionDep):
 
 
 @router.get("/{league_id}", response_model=LeagueSchema, description="Get league by ID")
-async def get_by_id(*, session: AsyncSessionDep, league_id: int):
+async def get_single(*, session: AsyncSessionDep, league_id: int):
 
     return await service.get_single(session, league_id)
 

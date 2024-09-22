@@ -85,20 +85,6 @@ export class HomePlayersComponent {
           return (item as any)[property];
       }
     };
-
-    this.dataSource.data = [
-      {
-        id: 1,
-        first_name: 'First',
-        last_name: 'Last',
-        passnumber: '123456789',
-        teams: [
-          { id: 1, league: 'A1', name: 'Test 1', number_of_players: 4 },
-          { id: 2, league: 'B2', name: 'Test 2', number_of_players: 1 },
-        ],
-      },
-      { id: 2, first_name: 'First 2', last_name: 'Last 3', passnumber: '987654321', teams: [{ id: 1, league: 'A1', name: 'Test 1', number_of_players: 4 }] },
-    ];
   }
 
   openCreatePlayerDialog(): void {

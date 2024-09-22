@@ -1,19 +1,19 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, Field
 
 
 class CreateModeSchema(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
     name: str
 
 
 class ModeSchema(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
     id: int
     name: str
-    order_index: int
+    order_index: int = Field(serialization_alias="orderIndex")
 
 
-class PatchModeSchema(ModeSchema):
-    pass
+class PatchModeSchema(CreateModeSchema):
+
+    id: int
+    order_index: int = Field(validation_alias="orderIndex")

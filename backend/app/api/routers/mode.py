@@ -27,7 +27,7 @@ async def get_all(*, session: AsyncSessionDep):
 
 
 @router.get("/{mode_id}", response_model=ModeSchema, description="Get mode by ID")
-async def get_by_id(*, session: AsyncSessionDep, mode_id: int):
+async def get_single(*, session: AsyncSessionDep, mode_id: int):
 
     return await service.get_single(session, mode_id)
 

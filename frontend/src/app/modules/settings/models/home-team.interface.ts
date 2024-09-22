@@ -1,11 +1,17 @@
+import { ILeague } from '../../../core/models/league.interface';
+
 export interface ICreateHomeTeam {
   name: string;
-  league: string;
+  leagueId: number;
 }
 
-export interface IHomeTeam extends IPatchHomeTeam {
+export interface IHomeTeam {
   id: number;
-  number_of_players: number;
+  name: string;
+  league: ILeague;
+  numberOfPlayers: number;
 }
 
-export interface IPatchHomeTeam extends ICreateHomeTeam {}
+export interface IPatchHomeTeam extends ICreateHomeTeam {
+  id: number;
+}

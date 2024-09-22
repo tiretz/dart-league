@@ -8,19 +8,19 @@ from app.models.mode import ModeModel
 from app.schemas.mode import CreateModeSchema, ModeSchema, PatchModeSchema
 
 
-async def create(session: AsyncSession, mode: CreateModeSchema) -> ModeSchema:
+async def create(session: AsyncSession, mode_to_create: CreateModeSchema) -> ModeSchema:
 
     max_order_index: int | None = await session.scalar(select(func.max(ModeModel.order_index)))
 
-    createdMode: ModeModel = ModeModel(name=mode.name, order_index=(max_order_index + 1) if max_order_index else 0)
+    mode: ModeModel = ModeModel(name=mode_to_create.name, order_index=(max_order_index + 1) if max_order_index else 0)
 
-    session.add(createdMode)
+    session.add(mode)
 
     await session.commit()
 
-    await session.refresh(createdMode)
+    await session.refresh(mode)
 
-    return ModeSchema.model_validate(createdMode)
+    return get_model_from_schema(mode)
 
 
 async def delete(session: AsyncSession, mode_id: int) -> ModeSchema:
@@ -31,14 +31,14 @@ async def delete(session: AsyncSession, mode_id: int) -> ModeSchema:
 
     await session.commit()
 
-    return ModeSchema.model_validate(mode)
+    return get_model_from_schema(mode)
 
 
 async def get_all(session: AsyncSession) -> list[ModeSchema]:
 
     modes: Sequence[ModeModel] = (await session.scalars(select(ModeModel).order_by(ModeModel.order_index))).unique().all()
 
-    return [ModeSchema.model_validate(mode) for mode in modes]
+    return [get_model_from_schema(mode) for mode in modes]
 
 
 async def get_by_id(session: AsyncSession, mode_id: int) -> ModeModel:
@@ -51,24 +51,29 @@ async def get_by_id(session: AsyncSession, mode_id: int) -> ModeModel:
     return mode
 
 
+def get_model_from_schema(mode: ModeModel) -> ModeSchema:
+
+    return ModeSchema(id=mode.id, name=mode.name, order_index=mode.order_index)
+
+
 async def get_single(session: AsyncSession, mode_id: int) -> ModeSchema:
 
     mode: ModeModel = await get_by_id(session, mode_id)
 
-    return ModeSchema.model_validate(mode)
+    return get_model_from_schema(mode)
 
 
-async def patch(session: AsyncSession, mode_id: int, patchedMode: PatchModeSchema) -> ModeSchema:
+async def patch(session: AsyncSession, mode_id: int, patched_mode: PatchModeSchema) -> ModeSchema:
 
-    mode_to_update: ModeModel = await get_by_id(session, mode_id)
+    mode: ModeModel = await get_by_id(session, mode_id)
 
-    mode_to_update.name = patchedMode.name
+    mode.name = patched_mode.name
 
-    session.add(mode_to_update)
+    session.add(mode)
 
     await session.commit()
 
-    return ModeSchema.model_validate(mode_to_update)
+    return get_model_from_schema(mode)
 
 
 async def reorder(session: AsyncSession, modes: list[ModeSchema]) -> list[ModeSchema]:
