@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, finalize, Observable } from 'rxjs';
-import { IHomePlayer } from '../models/home-player.interface';
+
+import { ICreateHomePlayer, IHomePlayer, IPatchHomePlayer } from '../models/home-player.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class HomePlayerService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  createHomePlayer(name: string): Observable<IHomePlayer> {
-    return this.httpClient.post<IHomePlayer>('player', { name });
+  createHomePlayer(homePlayer: ICreateHomePlayer): Observable<IHomePlayer> {
+    return this.httpClient.post<IHomePlayer>('player', homePlayer);
   }
 
   deleteHomePlayer(homePlayerId: number): Observable<IHomePlayer> {
@@ -28,7 +29,7 @@ export class HomePlayerService {
     return this.httpClient.get<IHomePlayer[]>('player').pipe(finalize(() => this.homePlayersLoadingSubject.next(false)));
   }
 
-  patchHomePlayer(player: IHomePlayer): Observable<IHomePlayer> {
-    return this.httpClient.patch<IHomePlayer>(`player/${player.id}`, player);
+  patchHomePlayer(homePlayer: IPatchHomePlayer): Observable<IHomePlayer> {
+    return this.httpClient.patch<IHomePlayer>(`player/${homePlayer.id}`, homePlayer);
   }
 }

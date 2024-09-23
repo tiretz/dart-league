@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.league import LeagueModel
 from app.models.team import TeamModel
 from app.schemas.team import CreateTeamSchema, PatchTeamSchema, TeamSchema
-from app.services import league
+from app.services import league as league_service
 
 
 async def create(session: AsyncSession, team_to_create: CreateTeamSchema) -> TeamSchema:
@@ -22,7 +22,7 @@ async def create(session: AsyncSession, team_to_create: CreateTeamSchema) -> Tea
 
     await session.refresh(team)
 
-    return get_model_from_schema(team)
+    return get_schema_from_model(team)
 
 
 async def delete(session: AsyncSession, team_id: int) -> TeamSchema:
@@ -33,14 +33,14 @@ async def delete(session: AsyncSession, team_id: int) -> TeamSchema:
 
     await session.commit()
 
-    return get_model_from_schema(team)
+    return get_schema_from_model(team)
 
 
 async def get_all(session: AsyncSession) -> list[TeamSchema]:
 
     teams: Sequence[TeamModel] = (await session.scalars(select(TeamModel).order_by(TeamModel.id))).unique().all()
 
-    return [get_model_from_schema(team) for team in teams]
+    return [get_schema_from_model(team) for team in teams]
 
 
 async def get_by_id(session: AsyncSession, team_id: int) -> TeamModel:
@@ -53,27 +53,27 @@ async def get_by_id(session: AsyncSession, team_id: int) -> TeamModel:
     return team
 
 
-def get_model_from_schema(team: TeamModel) -> TeamSchema:
+def get_schema_from_model(team: TeamModel) -> TeamSchema:
 
-    return TeamSchema(id=team.id, name=team.name, league=league.get_model_from_schema(team.league), number_of_players=len(team.players))
+    return TeamSchema(id=team.id, name=team.name, league=league_service.get_model_from_schema(team.league), number_of_players=len(team.players))
 
 
 async def get_single(session: AsyncSession, team_id: int) -> TeamSchema:
 
     team: TeamModel = await get_by_id(session, team_id)
 
-    return get_model_from_schema(team)
+    return get_schema_from_model(team)
 
 
 async def patch(session: AsyncSession, team_id: int, patched_team: PatchTeamSchema) -> TeamSchema:
 
     team: TeamModel = await get_by_id(session, team_id)
 
-    team.league = await league.get_by_id(session, patched_team.league_id)
+    team.league = await league_service.get_by_id(session, patched_team.league_id)
     team.name = patched_team.name
 
     session.add(team)
 
     await session.commit()
 
-    return get_model_from_schema(team)
+    return get_schema_from_model(team)

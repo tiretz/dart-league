@@ -1,26 +1,38 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body, status
 
 from app.api.dependencies.core import AsyncSessionDep
-from app.schemas.player import PlayerSchema
+from app.schemas.player import CreatePlayerSchema, PatchPlayerSchema, PlayerSchema
 from app.services import player as service
 
 
 router: APIRouter = APIRouter(prefix="/player", tags=["player"])
 
 
-@router.post("", response_model=PlayerSchema, description="Create new player")
-async def create_new(*, session: AsyncSessionDep):
+@router.post("", response_model=PlayerSchema, status_code=status.HTTP_201_CREATED, description="Create new home player")
+async def create(*, session: AsyncSessionDep, homePlayer: CreatePlayerSchema = Body()):
 
-    return await service.create(session)
+    return await service.create(session, homePlayer)
 
 
-@router.get("", response_model=list[PlayerSchema], description="Get all players")
+@router.delete("/{home_player_id}", response_model=PlayerSchema, description="Delete home player")
+async def delete(*, session: AsyncSessionDep, home_player_id: int):
+
+    return await service.delete(session, home_player_id)
+
+
+@router.get("", response_model=list[PlayerSchema], description="Get all home players")
 async def get_all(*, session: AsyncSessionDep):
 
     return await service.get_all(session)
 
 
-@router.get("/{player_id}", response_model=PlayerSchema, description="Get single player by ID")
-async def get_by_id(*, session: AsyncSessionDep, player_id: int):
+@router.get("/{home_player_id}", response_model=PlayerSchema, description="Get home player by ID")
+async def get_single(*, session: AsyncSessionDep, home_player_id: int):
 
-    return await service.get_by_id(session, player_id)
+    return await service.get_single(session, home_player_id)
+
+
+@router.patch("/{home_player_id}", response_model=PlayerSchema, description="Edit home player")
+async def patch(*, session: AsyncSessionDep, home_player_id: int, team: PatchPlayerSchema = Body()):
+
+    return await service.patch(session, home_player_id, team)

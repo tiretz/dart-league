@@ -44,7 +44,7 @@
           <div>Teamzugehörigkeit</div>
           <mat-selection-list formControlName="teams">
             @for (team of homeTeams; track team) {
-            <mat-list-option [value]="team.id">{{ team.name }} ({{ team.league }})</mat-list-option>
+            <mat-list-option [value]="team.id">{{ team.name }} ({{ team.league.name }})</mat-list-option>
             }
           </mat-selection-list>
         </div>

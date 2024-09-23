@@ -15,9 +15,9 @@ import { Observable } from 'rxjs';
 import { DeleteDialogComponent, DeleteDialogData } from '../../../../shared/components/delete-dialog/delete-dialog.component';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat-table-sorting-cache.directive';
+import { TeamsToCommaListPipe } from '../../../../shared/pipes/teams-to-comma-list.pipe';
 
-import { ICreateHomePlayer, IPatchHomePlayer } from '../../models/home-player.interface';
-import { IHomePlayer } from '../../models/home-player.interface';
+import { ICreateHomePlayer, IHomePlayer, IPatchHomePlayer } from '../../models/home-player.interface';
 
 import { HomePlayerService } from '../../services/home-player.service';
 
@@ -27,40 +27,13 @@ import { EditPlayerDialogComponent } from './components/edit-player-dialog/edit-
 @Component({
   selector: 'app-home-players',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, MatTableModule, MatSortModule, MatMenuModule, MatTableSortingCacheDirective, OverlayComponent],
+  imports: [CommonModule, MatCardModule, MatDividerModule, MatIconModule, MatButtonModule, MatTableModule, MatSortModule, MatMenuModule, MatTableSortingCacheDirective, OverlayComponent, TeamsToCommaListPipe],
   templateUrl: './home-players.component.html',
   styleUrl: './home-players.component.scss',
 })
 export class HomePlayersComponent {
-  protected columns = [
-    {
-      columnDef: 'id',
-      header: 'Nr.',
-      cell: (element: IHomePlayer) => `${element.id}`,
-    },
-    {
-      columnDef: 'name',
-      header: 'Name',
-      cell: (element: IHomePlayer) => `${element.last_name}, ${element.first_name}`,
-    },
-    {
-      columnDef: 'passnumber',
-      header: 'Passnummer',
-      cell: (element: IHomePlayer) => `${element.passnumber}`,
-    },
-    {
-      columnDef: 'teams',
-      header: 'Mannschaft(en)',
-      cell: (element: IHomePlayer) => `${element.teams.map((t) => t.name).join(', ')}`,
-    },
-    {
-      columnDef: 'actions',
-      header: '',
-      cell: (element: IHomePlayer) => '',
-    },
-  ];
+  protected columns = ['number', 'name', 'passnumber', 'teams', 'actions'];
   protected dataSource = new MatTableDataSource<IHomePlayer>();
-  protected displayedColumns = this.columns.map((c) => c.columnDef);
 
   protected isLoading$?: Observable<boolean>;
 
@@ -76,7 +49,7 @@ export class HomePlayersComponent {
     this.dataSource.sortingDataAccessor = (item: IHomePlayer, property: string) => {
       switch (property) {
         case 'name':
-          return item.last_name;
+          return item.lastName;
 
         case 'teams':
           return item.teams.length;
@@ -85,46 +58,65 @@ export class HomePlayersComponent {
           return (item as any)[property];
       }
     };
+
+    this.getHomePlayers();
+  }
+
+  private getHomePlayers(): void {
+    this.homePlayerService.getHomePlayers().subscribe({
+      next: (homePlayers: IHomePlayer[]) => {
+        this.dataSource.data = homePlayers;
+      },
+    });
   }
 
   openCreatePlayerDialog(): void {
     const createPlayerDialogRef = this.dialogService.open(CreatePlayerDialogComponent);
 
-    createPlayerDialogRef.afterClosed().subscribe((newPlayer: ICreateHomePlayer | undefined) => {
-      if (newPlayer) {
-        console.error(`Heimspieler '${newPlayer.first_name} ${newPlayer.last_name}' erstellt.`);
+    createPlayerDialogRef.afterClosed().subscribe((newHomePlayer: ICreateHomePlayer | undefined) => {
+      if (!newHomePlayer) {
         return;
       }
 
-      console.error('Erstellen eines Heimspielers abgebrochen.');
+      this.homePlayerService.createHomePlayer(newHomePlayer).subscribe({
+        next: (homePlayer: IHomePlayer) => {
+          this.getHomePlayers();
+        },
+      });
     });
   }
 
   openDeleteDialog(playerToDelete: IHomePlayer): void {
-    const dialogData: DeleteDialogData = { text: `Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' wirklich löschen?`, title: 'Heimspieler löschen' };
+    const dialogData: DeleteDialogData = { text: `Heimspieler '${playerToDelete.firstName} ${playerToDelete.lastName}' wirklich löschen?`, title: 'Heimspieler löschen' };
 
     const deleteDialogRef = this.dialogService.open(DeleteDialogComponent, { data: dialogData });
 
     deleteDialogRef.afterClosed().subscribe((result: boolean | undefined) => {
-      if (result) {
-        console.error(`Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' gelöscht.`);
+      if (!result) {
         return;
       }
 
-      console.error(`Löschen von Heimspieler '${playerToDelete.first_name} ${playerToDelete.last_name}' abgebrochen.`);
+      this.homePlayerService.deleteHomePlayer(playerToDelete.id).subscribe({
+        next: (homePlayer: IHomePlayer) => {
+          this.getHomePlayers();
+        },
+      });
     });
   }
 
   openEditPlayerDialog(playerToEdit: IHomePlayer): void {
     const editPlayerDialogRef = this.dialogService.open(EditPlayerDialogComponent, { data: playerToEdit });
 
-    editPlayerDialogRef.afterClosed().subscribe((editedPlayer: IPatchHomePlayer | undefined) => {
-      if (editedPlayer) {
-        console.error(`Heimspieler '${editedPlayer.first_name} ${editedPlayer.last_name}' beabeitet.`);
+    editPlayerDialogRef.afterClosed().subscribe((editedHomePlayer: IPatchHomePlayer | undefined) => {
+      if (!editedHomePlayer) {
         return;
       }
 
-      console.error(`Bearbeiten von Heimspieler '${playerToEdit.first_name} ${playerToEdit.last_name}' abgebrochen.`);
+      this.homePlayerService.patchHomePlayer(editedHomePlayer).subscribe({
+        next: (homePlayer: IHomePlayer) => {
+          this.getHomePlayers();
+        },
+      });
     });
   }
 }

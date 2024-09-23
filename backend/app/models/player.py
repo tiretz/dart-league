@@ -13,4 +13,4 @@ class PlayerModel(TableBase):
     last_name: Mapped[str] = mapped_column(TEXT)
     passnumber: Mapped[str] = mapped_column(TEXT)
 
-    teams: Mapped[list[TeamModel]] = relationship(secondary=team_player_association_table, back_populates="players", lazy="joined")
+    teams: Mapped[list["TeamModel"]] = relationship(secondary=team_player_association_table, back_populates="players", lazy="joined")

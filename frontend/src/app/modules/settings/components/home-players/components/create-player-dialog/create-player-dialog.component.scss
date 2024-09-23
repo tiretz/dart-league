@@ -15,3 +15,8 @@ mat-dialog-content {
 mat-form-field {
   width: 100%;
 }
+
+mat-selection-list {
+  max-height: 250px;
+  overflow-y: auto;
+}
