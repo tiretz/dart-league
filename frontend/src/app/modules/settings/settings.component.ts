@@ -13,7 +13,8 @@ import { HomeTeamComponent } from './components/home-team/home-team.component';
 import { ListSettingComponent } from './components/list-setting/list-setting.component';
 import { MiscSettingsComponent } from './components/misc-settings/misc-settings.component';
 
-import { SettingsService } from './services/settings.service';
+import { LeagueService } from './services/league.service';
+import { ModeService } from './services/mode.service';
 
 @Component({
   selector: 'app-settings',
@@ -28,18 +29,18 @@ export class SettingsComponent implements OnInit {
   protected modes?: IMode[];
   protected modesLoading$?: Observable<boolean>;
 
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(private readonly leagueService: LeagueService, private readonly modeService: ModeService) {}
 
   ngOnInit(): void {
-    this.leaguesLoading$ = this.settingsService.leaguesLoading$;
-    this.modesLoading$ = this.settingsService.modesLoading$;
+    this.leaguesLoading$ = this.leagueService.leaguesLoading$;
+    this.modesLoading$ = this.modeService.modesLoading$;
 
     this.getLeagues();
     this.getModes();
   }
 
   getLeagues(): void {
-    this.settingsService.getLeagues().subscribe({
+    this.leagueService.getLeagues().subscribe({
       next: (leagues: ILeague[]) => {
         this.leagues = leagues;
       },
@@ -47,7 +48,7 @@ export class SettingsComponent implements OnInit {
   }
 
   getModes(): void {
-    this.settingsService.getModes().subscribe({
+    this.modeService.getModes().subscribe({
       next: (modes: IMode[]) => {
         this.modes = modes;
       },
@@ -55,7 +56,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onCreateLeague(name: string): void {
-    this.settingsService.createLeague(name).subscribe({
+    this.leagueService.createLeague(name).subscribe({
       next: (createdLeague: ILeague) => {
         this.getLeagues();
       },
@@ -63,7 +64,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onCreateMode(name: string): void {
-    this.settingsService.createMode(name).subscribe({
+    this.modeService.createMode(name).subscribe({
       next: (createdMode: IMode) => {
         this.getModes();
       },
@@ -71,7 +72,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onDeleteLeague(league: ILeague): void {
-    this.settingsService.deleteLeague(league.id).subscribe({
+    this.leagueService.deleteLeague(league.id).subscribe({
       next: (deletedLeague: ILeague) => {
         this.getLeagues();
       },
@@ -79,7 +80,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onDeleteMode(mode: IMode): void {
-    this.settingsService.deleteMode(mode.id).subscribe({
+    this.modeService.deleteMode(mode.id).subscribe({
       next: (deletedMode: IMode) => {
         this.getModes();
       },
@@ -87,7 +88,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onEditLeague(league: ILeague): void {
-    this.settingsService.patchLeague(league).subscribe({
+    this.leagueService.patchLeague(league).subscribe({
       next: (editedLeague: ILeague) => {
         this.getLeagues();
       },
@@ -95,7 +96,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onEditMode(mode: IMode): void {
-    this.settingsService.patchMode(mode).subscribe({
+    this.modeService.patchMode(mode).subscribe({
       next: (editedMode: IMode) => {
         this.getModes();
       },
@@ -103,7 +104,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onReorderLeagues(leagues: ILeague[]): void {
-    this.settingsService.reorderLeagues(leagues).subscribe({
+    this.leagueService.reorderLeagues(leagues).subscribe({
       next: (reorderedLeagues: ILeague[]) => {
         this.leagues = reorderedLeagues;
       },
@@ -111,7 +112,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onReorderModes(modes: IMode[]): void {
-    this.settingsService.reorderModes(modes).subscribe({
+    this.modeService.reorderModes(modes).subscribe({
       next: (reorderedModes: IMode[]) => {
         this.modes = reorderedModes;
       },

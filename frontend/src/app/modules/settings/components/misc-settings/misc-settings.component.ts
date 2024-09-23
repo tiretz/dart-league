@@ -10,10 +10,11 @@ import { Observable } from 'rxjs';
 
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 
-import { SettingsService } from '../../services/settings.service';
+import { IMiscSettings } from '../../models/misc-settings.interface';
+
+import { MiscSettingsService } from '../../services/misc-settings.service';
 
 import { NumericSettingComponent } from '../numeric-setting/numeric-setting.component';
-import { IMiscSettings } from '../../models/misc-settings.interface';
 
 @Component({
   selector: 'app-misc-settings',
@@ -26,7 +27,7 @@ export class MiscSettingsComponent {
   protected isLoading$?: Observable<boolean>;
   protected settings?: IMiscSettings;
 
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(private readonly settingsService: MiscSettingsService) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.settingsService.miscSettingsLoading$;

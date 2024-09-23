@@ -14,7 +14,7 @@ import { ILeague } from '../../../../../../core/models/league.interface';
 
 import { ICreateHomeTeam } from '../../../../models/home-team.interface';
 
-import { SettingsService } from '../../../../services/settings.service';
+import { LeagueService } from '../../../../services/league.service';
 
 @Component({
   selector: 'app-create-team-dialog',
@@ -27,7 +27,7 @@ export class CreateTeamDialogComponent {
   formGroup!: FormGroup;
   leagues?: ILeague[];
 
-  constructor(private readonly dialogRef: MatDialogRef<CreateTeamDialogComponent>, private readonly formBuilder: FormBuilder, private readonly settingsService: SettingsService) {}
+  constructor(private readonly dialogRef: MatDialogRef<CreateTeamDialogComponent>, private readonly formBuilder: FormBuilder, private readonly leagueService: LeagueService) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -35,7 +35,7 @@ export class CreateTeamDialogComponent {
       league: new FormControl('', { validators: [Validators.required] }),
     });
 
-    this.settingsService.getLeagues().subscribe({
+    this.leagueService.getLeagues().subscribe({
       next: (leagues: ILeague[]) => {
         this.leagues = leagues;
       },

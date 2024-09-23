@@ -15,7 +15,7 @@ import { ILeague } from '../../../../../../core/models/league.interface';
 import { IPatchHomeTeam } from '../../../../models/home-team.interface';
 import { IHomeTeam } from '../../../../models/home-team.interface';
 
-import { SettingsService } from '../../../../services/settings.service';
+import { LeagueService } from '../../../../services/league.service';
 
 @Component({
   selector: 'app-edit-team-dialog',
@@ -30,7 +30,7 @@ export class EditTeamDialogComponent {
 
   team: IHomeTeam = inject(MAT_DIALOG_DATA);
 
-  constructor(private readonly dialogRef: MatDialogRef<EditTeamDialogComponent>, private readonly formBuilder: FormBuilder, private readonly settingsService: SettingsService) {}
+  constructor(private readonly dialogRef: MatDialogRef<EditTeamDialogComponent>, private readonly formBuilder: FormBuilder, private readonly leagueService: LeagueService) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -38,7 +38,7 @@ export class EditTeamDialogComponent {
       league: new FormControl(this.team.league.id, { validators: [Validators.required] }),
     });
 
-    this.settingsService.getLeagues().subscribe({
+    this.leagueService.getLeagues().subscribe({
       next: (leagues: ILeague[]) => {
         this.leagues = leagues;
       },

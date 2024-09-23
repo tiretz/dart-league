@@ -19,7 +19,7 @@ import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat
 import { ICreateHomePlayer, IPatchHomePlayer } from '../../models/home-player.interface';
 import { IHomePlayer } from '../../models/home-player.interface';
 
-import { SettingsService } from '../../services/settings.service';
+import { HomePlayerService } from '../../services/home-player.service';
 
 import { CreatePlayerDialogComponent } from './components/create-player-dialog/create-player-dialog.component';
 import { EditPlayerDialogComponent } from './components/edit-player-dialog/edit-player-dialog.component';
@@ -67,10 +67,10 @@ export class HomePlayersComponent {
   @ViewChild(MatSort, { static: true })
   protected sort!: MatSort;
 
-  constructor(private readonly dialogService: MatDialog, private readonly settingsService: SettingsService) {}
+  constructor(private readonly dialogService: MatDialog, private readonly homePlayerService: HomePlayerService) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.settingsService.homePlayersLoading$;
+    this.isLoading$ = this.homePlayerService.homePlayersLoading$;
 
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (item: IHomePlayer, property: string) => {

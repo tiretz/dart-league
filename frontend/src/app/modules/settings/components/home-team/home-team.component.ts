@@ -20,7 +20,7 @@ import { MatTableSortingCacheDirective } from '../../../../shared/directives/mat
 
 import { ICreateHomeTeam, IHomeTeam, IPatchHomeTeam } from '../../models/home-team.interface';
 
-import { SettingsService } from '../../services/settings.service';
+import { HomeTeamService } from '../../services/home-team.service';
 
 import { CreateTeamDialogComponent } from './components/create-team-dialog/create-team-dialog.component';
 import { EditTeamDialogComponent } from './components/edit-team-dialog/edit-team-dialog.component';
@@ -41,10 +41,10 @@ export class HomeTeamComponent {
   @ViewChild(MatSort, { static: true })
   protected sort!: MatSort;
 
-  constructor(private readonly dialogService: MatDialog, private readonly settingsService: SettingsService) {}
+  constructor(private readonly dialogService: MatDialog, private readonly homeTeamService: HomeTeamService) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.settingsService.homeTeamsLoading$;
+    this.isLoading$ = this.homeTeamService.homeTeamsLoading$;
 
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (data: IHomeTeam, sortHeaderId: string) => {
@@ -61,7 +61,7 @@ export class HomeTeamComponent {
   }
 
   private getHomeTeams(): void {
-    this.settingsService.getHomeTeams().subscribe({
+    this.homeTeamService.getHomeTeams().subscribe({
       next: (homeTeams: IHomeTeam[]) => {
         this.dataSource.data = homeTeams;
       },
@@ -76,7 +76,7 @@ export class HomeTeamComponent {
         return;
       }
 
-      this.settingsService.createHomeTeam(newTeam).subscribe({
+      this.homeTeamService.createHomeTeam(newTeam).subscribe({
         next: (homeTeam: IHomeTeam) => {
           this.getHomeTeams();
         },
@@ -94,7 +94,7 @@ export class HomeTeamComponent {
         return;
       }
 
-      this.settingsService.deleteHomeTeam(teamToDelete.id).subscribe({
+      this.homeTeamService.deleteHomeTeam(teamToDelete.id).subscribe({
         next: (homeTeam: IHomeTeam) => {
           this.getHomeTeams();
         },
@@ -110,7 +110,7 @@ export class HomeTeamComponent {
         return;
       }
 
-      this.settingsService.patchHomeTeam(editedTeam).subscribe({
+      this.homeTeamService.patchHomeTeam(editedTeam).subscribe({
         next: (homeTeam: IHomeTeam) => {
           this.getHomeTeams();
         },
